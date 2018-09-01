@@ -20,16 +20,12 @@ namespace NSPlayer
 
 
         // Use this for initialization
-        public override void Enter(AState from, GameObject arg = null)
+        public override void Enter(AState from, params GameObject[] args)
         {
-            interestBlock = arg.GetComponent<Block>();
-            FindPath(interestBlock);
-            MoveToBlock(interestBlock);
-
+            path = args[0].GetComponent<Path>();
             turn = true;
-            
-            // TODO : reconsider call
-            FindSelectableBlocks();
+            moving = true;
+
         }
 
         public override void Tick()
@@ -39,97 +35,11 @@ namespace NSPlayer
         }
 
 
-        public void GetCurrentBlock()
-        {
-            currentBlock = GetTargetBlock(Context.gameObject);
-            currentBlock.current = true;
-        }
-
-        public Block GetTargetBlock(GameObject target)
-        {
-            RaycastHit hit;
-            Block block = null;
-
-            Ray ray = new Ray(target.transform.position + new Vector3(0, rayCastOffsetUp, 0), -Vector3.up);
-
-            //TODO put layer elsewhere
-            if (Physics.Raycast(ray, out hit, rayCastDistance, layer))
-            {
-                block = hit.collider.GetComponent<BlockColliderData>().block;
-            }
-
-            return block;
-        }
-
-        public void ComputeAdjacencyLists(float jumpHeight, Block target)
-        {
-            foreach (Block block in NSLevel.Level.Instance.blocks)
-            {
-                block.FindNeighbors(jumpHeight, target);
-            }
-        }
-
-        public void FindSelectableBlocks()
-        {
-
-            // TODO block certain block
-      
-           //selectableBlocks = Level.Instance.blocks;
-
-            //return;
-
-            /// RECONSIDER THIS
-
-
-            ComputeAdjacencyLists(jumpHeight, null);
-            GetCurrentBlock();
-
-            Queue<Block> process = new Queue<Block>();
-
-            process.Enqueue(currentBlock);
-            currentBlock.visited = true;
-            //currentBlock.parent = ??  leave as null 
-
-            while (process.Count > 0)
-            {
-                Block t = process.Dequeue();
-
-                selectableBlocks.Add(t);
-                t.selectable = true;
-
-                foreach (Block block in t.adjacencyList)
-                {
-                    if (!block.visited)
-                    {
-                        block.parent = t;
-                        block.visited = true;
-                        block.distance = 1 + t.distance;
-                        process.Enqueue(block);
-                    }
-                }
-                
-            }
-        }
-
-        public void MoveToBlock(Block block)
-        {
-            path.Clear();
-            block.target = true;
-            moving = true;
-
-            Block next = block;
-            while (next != null)
-            {
-                path.Push(next);
-                next = next.parent;
-            }
-        }
-
         public void DoMove()
         {
-            if (path.Count > 0)
+            if (path.stack.Count > 0)
             {
-                Block t = path.Peek();
+                Block t = path.stack.Peek();
                 Vector3 target = t.transform.position;
 
                 if (Vector3.Distance(Context.transform.position, target) >= 0.05f)
@@ -154,7 +64,30 @@ namespace NSPlayer
                 {
                     //Block center reached
                     Context.transform.position = target;
-                    path.Pop();
+                    path.stack.Pop();
+                
+                    //// If second to last and job is 'Interact' then stop
+                    //if (interestBlock.unit != null)
+                    //{
+                    //    if (path.stack.Count == 0)
+                    //    {
+                    //        int iasd = 0;
+                    //    }
+
+                    //    if (path.stack.Peek() == interestBlock)
+                    //    {
+                    //        path.stack.Pop();
+                    //        turn = false;
+                    //        moving = false;
+
+                    //        // Interact
+
+                    //        Context.fsm.SwitchState("Interact", interestBlock.unit.gameObject);
+                    //        return;
+
+                    //    }
+                    //}
+
                 }
             }
             else
@@ -162,36 +95,24 @@ namespace NSPlayer
                 turn = false;
                 moving = false;
 
-                // Interact
-                if (interestBlock.unit)
-                {
-                    Context.fsm.SwitchState("Interact", interestBlock.unit.gameObject);
+                //if (path.interactOnFinished)
+                //{
+                //    Context.fsm.SwitchState("Interact", path.interactionUnit.gameObject, path.destination.gameObject);
+                //}
+                //else
+                //{
 
-                }
-                else
-                {
-                    RemoveSelectableBlocks();
-                    Context.fsm.SwitchState("Idle");
-
-                }
-
+                //TODO Interact on end move
+                Context.fsm.SwitchState("Idle", path.destination.gameObject);
+                //}
+ 
             }
         }
 
-        protected void RemoveSelectableBlocks()
+        public override void Exit(AState to)
         {
-            if (currentBlock != null)
-            {
-                currentBlock.current = false;
-                currentBlock = null;
-            }
-
-            foreach (Block block in selectableBlocks)
-            {
-                block.Reset();
-            }
-
-            selectableBlocks.Clear();
+            base.Exit(to);
+            Destroy(path.gameObject);
         }
 
         void CalculateHeading(Vector3 target)
@@ -299,23 +220,6 @@ namespace NSPlayer
             }
         }
 
-        protected Block FindLowestF(List<Block> list)
-        {
-            Block lowest = list[0];
-
-            foreach (Block t in list)
-            {
-                if (t.f < lowest.f)
-                {
-                    lowest = t;
-                }
-            }
-
-            list.Remove(lowest);
-
-            return lowest;
-        }
-
         protected Block FindEndBlock(Block t)
         {
             Stack<Block> tempPath = new Stack<Block>();
@@ -342,59 +246,6 @@ namespace NSPlayer
         }
 
 
-        protected void FindPath(Block target)
-        {
-            ComputeAdjacencyLists(jumpHeight, target);
-            GetCurrentBlock();
-
-            List<Block> openList = new List<Block>();
-            List<Block> closedList = new List<Block>();
-
-            openList.Add(currentBlock);
-            //currentBlock.parent = ??
-            currentBlock.h = Vector3.Distance(currentBlock.transform.position, target.transform.position);
-            currentBlock.f = currentBlock.h;
-
-            while (openList.Count > 0)
-            {
-                Block t = FindLowestF(openList);
-
-                closedList.Add(t);
-
-                foreach (Block block in t.adjacencyList)
-                {
-                    if (closedList.Contains(block))
-                    {
-                        //Do nothing, already processed
-                    }
-                    else if (openList.Contains(block))
-                    {
-                        float tempG = t.g + Vector3.Distance(block.transform.position, t.transform.position);
-
-                        if (tempG < block.g)
-                        {
-                            block.parent = t;
-
-                            block.g = tempG;
-                            block.f = block.g + block.h;
-                        }
-                    }
-                    else
-                    {
-                        block.parent = t;
-
-                        block.g = t.g + Vector3.Distance(block.transform.position, t.transform.position);
-                        block.h = Vector3.Distance(block.transform.position, target.transform.position);
-                        block.f = block.g + block.h;
-
-                        openList.Add(block);
-                    }
-                }
-            }
-
-            //todo - what do you do if there is no path to the target block?
-            Debug.Log("Path not found");
-        }
 
 
     }

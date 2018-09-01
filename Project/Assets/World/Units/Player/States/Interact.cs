@@ -2,21 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using NSLevel;
 
 namespace NSPlayer
 {
     public class Interact : PlayerState
     {
+
+        private Block arrivalBlock = null;
+
         public override string GetName()
         {
             return "Interact";
         }
 
-        public override void Enter(AState from, GameObject arg = null)
+        public override void Enter(AState from, params GameObject[] args)
         {
-            base.Enter(from, arg);
-            DoInteract(arg.GetComponent<Unit>());
+            base.Enter(from, args);
+            DoInteract(args[0].GetComponent<Unit>());
+            arrivalBlock = args[1].GetComponent<Block>();
         }
         
         public void DoInteract(Unit unit)
@@ -29,7 +33,8 @@ namespace NSPlayer
 
         public virtual void OnResponseReceived()
         {
-            Context.fsm.SwitchState("Idle");
+            // DO not move character
+            Context.fsm.SwitchState("Idle", Context.block.gameObject);
             
         }
 

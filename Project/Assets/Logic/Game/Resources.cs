@@ -10,6 +10,8 @@ namespace NSGame
         [Header("\n")]
 
         public GameObject countDown;
+        public GameObject dummy;
+
 
         private static Resources _instance;
         public static NSGame.Resources Instance {  get{ return _instance; } }
@@ -27,8 +29,8 @@ namespace NSGame
             AXE
         }
 
-
-        public static LayerMask COLLISION_LAYER_BLOCK = 11;
+        //
+        public LayerMask collisionLayerBlock = 11;
 
 
     }

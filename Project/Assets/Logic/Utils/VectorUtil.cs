@@ -7,7 +7,7 @@ using UnityEngine;
 public static class VectorUtil
 {
 
-    private const float EPSILON = 0.001f;
+    private const float EPSILON = 0.1f;
 
 
     public static bool SufficientlyClose(Vector3 pos0, Vector3 pos1)

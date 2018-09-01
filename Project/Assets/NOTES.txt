@@ -55,3 +55,84 @@ Player Movement
 
 
 
+		                    // If second to last and job is 'Interact' then stop
+                    if (interestBlock.unit != null)
+                    {
+                        if (t.parent == interestBlock.Count == 1)
+                        {
+                            path.Pop();
+                            turn = false;
+                            moving = false;
+
+                            // Interact
+
+                            Context.fsm.SwitchState("Interact", interestBlock.unit.gameObject);
+                            return;
+
+                        }
+                    }
+
+
+
+
+
+					
+
+        public void FindSelectableBlocks()
+        {
+
+            // TODO block certain block
+
+            //selectableBlocks = Level.Instance.blocks;
+
+            //return;
+
+            /// RECONSIDER THIS
+
+
+            ComputeAdjacencyLists(jumpHeight, null);
+            GetCurrentBlock();
+
+            Queue<Block> process = new Queue<Block>();
+
+            process.Enqueue(currentBlock);
+            currentBlock.visited = true;
+            //currentBlock.parent = ??  leave as null 
+
+            while (process.Count > 0)
+            {
+                Block t = process.Dequeue();
+
+                selectableBlocks.Add(t);
+                t.selectable = true;
+
+                foreach (Block block in t.adjacencyList)
+                {
+                    if (!block.visited)
+                    {
+                        block.parent = t;
+                        block.visited = true;
+                        block.distance = 1 + t.distance;
+                        process.Enqueue(block);
+                    }
+                }
+
+            }
+        }
+
+
+        protected void RemoveSelectableBlocks()
+        {
+            if (currentBlock != null)
+            {
+                currentBlock.current = false;
+                currentBlock = null;
+            }
+
+            foreach (Block block in selectableBlocks)
+            {
+                block.Reset();
+            }
+
+            selectableBlocks.Clear();
+        }

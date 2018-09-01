@@ -58,7 +58,7 @@ namespace NSFSM
         }
 
         // State management
-        public void SwitchState(string newState, GameObject arg = null)
+        public void SwitchState(string newState, params GameObject[] args)
         {
             AState state = FindState(newState);
             if (state == null)
@@ -68,7 +68,7 @@ namespace NSFSM
             }
 
             m_StateStack[m_StateStack.Count - 1].Exit(state);
-            state.Enter(m_StateStack[m_StateStack.Count - 1], arg);
+            state.Enter(m_StateStack[m_StateStack.Count - 1], args);
             m_StateStack.RemoveAt(m_StateStack.Count - 1);
             m_StateStack.Add(state);
         }

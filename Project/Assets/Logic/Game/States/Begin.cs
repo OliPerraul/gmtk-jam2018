@@ -13,7 +13,7 @@ namespace NSGame
             return "Begin";
         }
 
-        public override void Enter(AState from, GameObject gameObject = null)
+        public override void Enter(AState from, GameObject[] args)
         {
             base.Enter(from);
             SceneManager.LoadScene("Main");

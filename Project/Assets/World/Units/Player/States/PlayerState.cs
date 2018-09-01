@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NSLevel;
+using NSPlayer;
 
 public class PlayerState : AState
 {
     public bool turn = false;
     protected List<Block> selectableBlocks = new List<Block>();
-    protected Stack<Block> path = new Stack<Block>();
+    protected Path path = new Path();
     protected Block currentBlock;
 
     public bool moving = false;

@@ -34,7 +34,7 @@ public abstract class AState : MonoBehaviour
 
 
 
-    public virtual void Enter(AState from, GameObject arg = null)
+    public virtual void Enter(AState from, params GameObject[] args)
     {
         if(debug)
         Debug.Log(GetName() + " Entered");

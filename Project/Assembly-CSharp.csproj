@@ -73,6 +73,7 @@
     <Compile Include="Assets\Logic\Game\States\GameState.cs" />
     <Compile Include="Assets\Logic\Game\States\Main.cs" />
     <Compile Include="Assets\Logic\Game\States\StartMenu.cs" />
+    <Compile Include="Assets\Logic\Resources\DummyData.cs" />
     <Compile Include="Assets\Logic\Resources\Model.cs" />
     <Compile Include="Assets\Logic\Resources\SpriteAnimator.cs" />
     <Compile Include="Assets\Logic\Resources\Transform.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Assets\World\Level\BlockSelect.cs" />
     <Compile Include="Assets\World\Level\Level.cs" />
     <Compile Include="Assets\World\Units\Harvestable.cs" />
+    <Compile Include="Assets\World\Units\Player\Path.cs" />
     <Compile Include="Assets\World\Units\Player\Player.cs" />
     <Compile Include="Assets\World\Units\Player\States\GroundedMovement.cs" />
     <Compile Include="Assets\World\Units\Player\States\Idle.cs" />

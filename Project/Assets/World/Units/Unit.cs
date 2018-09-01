@@ -32,7 +32,7 @@ public class Unit: MonoBehaviour
         Ray ray = new Ray(target.transform.position + new Vector3(0, rayCastOffsetUp, 0), -Vector3.up);
 
         //TODO put layer elsewhere
-        if (Physics.Raycast(ray, out hit, rayCastDistance, NSGame.Resources.COLLISION_LAYER_BLOCK))
+        if (Physics.Raycast(ray, out hit, rayCastDistance, NSGame.Resources.Instance.collisionLayerBlock))
         {
             block = hit.collider.GetComponent<BlockColliderData>().block;
         }

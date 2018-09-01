@@ -41,18 +41,18 @@ namespace NSLevel
             //{
             //    _meshRenderer.material.color = Color.magenta;
             //}
-            //else if (target)
-            //{
-            //    _meshRenderer.material.color = Color.green;
-            //}
-            //else if (selectable)
-            //{
-            //    _meshRenderer.material.color = Color.red;
-            //}
-            //else
-            //{
-            //    _meshRenderer.material.color = Color.white;
-            //}
+            if (unit)
+            {
+                _meshRenderer.material.color = Color.magenta;
+            }
+            else if (!walkable)
+            {
+                _meshRenderer.material.color = Color.red;
+            }
+            else
+            {
+                _meshRenderer.material.color = Color.white;
+            }
         }
 
         public void Reset()
@@ -102,17 +102,63 @@ namespace NSLevel
 
         public bool GetNeighbour(Vector3 direction, out Block neighbour)
         {
-            Vector3 halfExtents = new Vector3(0.25f, 1, 0.25f);
-            Collider[] colliders = Physics.OverlapBox(transform.position + direction, halfExtents);
+            RaycastHit hit;
 
-            if (colliders.Length > 0)
+            Ray ray = new Ray(transform.position, direction);
+
+            //TODO put layer elsewhere
+            if (Physics.Raycast(ray, out hit, 2, NSGame.Resources.Instance.collisionLayerBlock))
             {
-                neighbour = colliders[0].GetComponent<BlockColliderData>().block;
+                neighbour = hit.collider.GetComponent<BlockColliderData>().block;
                 return true;
             }
 
+
             neighbour = null;
             return false;
+
+            //Vector3 halfExtents = new Vector3(0.25f, 1, 0.25f);
+            //Collider[] colliders = Physics.OverlapBox(transform.position + direction, halfExtents);
+
+            //if (colliders.Length > 0)
+            //{
+            //    neighbour = colliders[0].GetComponent<BlockColliderData>().block;
+            //    return true;
+            //}
+
+            //neighbour = null;
+            //return false;
+        }
+
+        // NEW SYSTEM, l, r, t, d
+        // TODO use elsewhere
+        public List<Block> GetAdjacentBlocks()
+        {
+            List<Block> adjacent = new List<Block>();
+
+            Block neighbour;
+            if (GetNeighbour(transform.forward, out neighbour))
+            {
+                adjacent.Add(neighbour);
+
+            }
+
+            if (GetNeighbour(-transform.forward, out neighbour))
+            {
+                adjacent.Add(neighbour);
+            }
+
+            if (GetNeighbour(transform.right, out neighbour))
+            {
+                    adjacent.Add(neighbour);
+            }
+
+            if (GetNeighbour(-transform.right, out neighbour))
+            {
+                adjacent.Add(neighbour);
+            }
+
+            return adjacent;
         }
 
 

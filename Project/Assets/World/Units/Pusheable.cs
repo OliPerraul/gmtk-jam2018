@@ -11,8 +11,14 @@ namespace NSUnit
         [SerializeField]
         private float moveSpeed = 0.04f;
         private bool stable = true;
-        
-        
+        private bool falling = false;
+        private bool destroy = false;
+
+
+        [SerializeField]
+        private float fallspeed = 10;
+
+
         Vector3 targetPosition;
 
 
@@ -26,9 +32,28 @@ namespace NSUnit
 
                 if (VectorUtil.SufficientlyClose(transform.position, targetPosition))
                 {
-                    onResponseFinished.Invoke();
+
+                    if (falling)
+                    {
+                        targetPosition.y = transform.position.y -fallspeed;
+                        falling = false;
+                        return;
+                    }
+
+                    if (destroy)
+                    {
+                        Destroy(gameObject);
+                        return;
+                    }
+
+
                     stable = true;
+                    onResponseFinished.Invoke();
+                    
+                    
                 }
+
+
             }
         }
 
@@ -50,15 +75,19 @@ namespace NSUnit
         {
             Block neighbour;
             stable = false;
+            block.walkable = true;
             block.unit = null;
             if (block.GetNeighbour(direction, out neighbour))
             {
-                neighbour.unit = this;
-                targetPosition = neighbour.transform.position;
+                block = neighbour;
+                block.unit = this;
+                block.walkable = false;
+
+                targetPosition = block.transform.position;
             }
             else
             {
-                Fall();
+               Fall(direction);
             }
         }
 
@@ -71,11 +100,12 @@ namespace NSUnit
         }
 
 
-        private void Fall()
+        private void Fall(Vector3 direction)
         {
-
-
-        }
+            targetPosition = transform.position + direction * 2;
+            falling = true;
+            destroy = true;
+         }
 
 
 
