@@ -48,7 +48,7 @@ namespace NSFSM
 
         public void Tick()
         {
-            ________currentState_______ = Top;
+            ________currentState_______ = m_StateStack[m_StateStack.Count - 1];
 
 
             if (m_StateStack.Count > 0)

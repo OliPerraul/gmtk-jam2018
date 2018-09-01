@@ -31,6 +31,9 @@ namespace NSPlayer
                 {
                     NSLevel.Block t = hit.collider.GetComponent<BlockColliderData>().block;
 
+                    if (t.busy)
+                        return;
+
                     // If sel block with unit
                     if (t.selectable && t.unit != null)
                     {
@@ -39,7 +42,9 @@ namespace NSPlayer
                             return;
 
                         // Only works on idle
-                        TryInteract(t);
+                        if (TryInteract(t))
+                        {
+                        }
 
 
                         // TODO move and interact ??
@@ -120,9 +125,10 @@ namespace NSPlayer
 
 
         // Overriden
-        public virtual void TryInteract(Block t)
+        public virtual bool TryInteract(Block t)
         {
             // NOthing
+            return false;
         }
         
         

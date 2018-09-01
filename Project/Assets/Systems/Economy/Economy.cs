@@ -9,8 +9,17 @@ using UnityEngine;
 
 
 
-class Economy
+class Economy : MonoBehaviour
 {
+    private static Economy _instance;
+    public static Economy Instance { get { return _instance; } }
+
+    public void Awake()
+    {
+        _instance = this;
+    }
+
+
     //public static Economy instance;
 
     float interval_week = 60;
@@ -22,7 +31,9 @@ class Economy
     private CountDown countd_y;
 
 
-    public int money = 0;
+    public float money = 0;
+    public float rent = 10000.00f;
+
 
     public Economy()
     {

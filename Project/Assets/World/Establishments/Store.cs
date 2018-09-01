@@ -5,7 +5,9 @@ using System.Text;
 
 namespace NSEstablishment
 {
-    public abstract class Store
+
+    // SEED GOODS
+    public class Store : Establishment
     {
 
     }

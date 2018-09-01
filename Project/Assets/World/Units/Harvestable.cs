@@ -12,20 +12,30 @@ namespace NSUnit
     public class Harvestable : Unit
     {
         public int health = 1;
-        
+
+        public int stackSize;
+
+
+        private void Start()
+        {
+            type = TYPE.HARVESTABLE;
+        }
+
+
         public override void Respond(Unit unit)
         {
             base.Respond(unit);
 
             health--;
-            if (health > 0)
+
+            if (health == 0)
             {
-                // TODO prompt animation
-                onResponseFinished.Invoke();
+                Harvest();
             }
             else
             {
-                Harvest();
+                // TODO prompt animation
+                onResponseFinished.Invoke();
 
             }
             
@@ -40,8 +50,25 @@ namespace NSUnit
 
         public void Harvest()
         {
-            
 
+            Pusheable pusheable = Instantiate(NSGame.Resources.Instance.pusheable).GetComponent<Pusheable>();
+
+            pusheable.transform.position = block.transform.position;
+
+            pusheable.block = block;
+            block.unit = pusheable;
+            block.walkable = false;
+
+            //block.SetUnit(pusheable);
+            Invoke("NotifyPlayer", 1f);
+
+
+        }
+
+        private void NotifyPlayer()
+        {
+            Destroy(gameObject);
+            onResponseFinished.Invoke();
         }
     
     }

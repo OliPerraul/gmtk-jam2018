@@ -31,6 +31,16 @@ namespace NSGame
 
         //
         public LayerMask collisionLayerBlock = 11;
+        public LayerMask collisionLayerEstablishment = 11;
+
+
+        [Header("World")]
+        [Header("\n")]
+
+        public GameObject harvestable;
+        public GameObject pusheable;
+
+
 
 
     }

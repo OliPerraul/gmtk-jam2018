@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4440677977572190}
-  - component: {fileID: 114386527811225206}
   - component: {fileID: 136028361235702250}
   m_Layer: 12
   m_Name: Collider
@@ -38,7 +37,6 @@ GameObject:
   - component: {fileID: 4988751394386954}
   - component: {fileID: 33934279353149452}
   - component: {fileID: 23638314898881546}
-  - component: {fileID: 136596732678475962}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -69,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1850285463091846}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 16}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4440677977572190}
@@ -156,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec880b28ede4774aa6249da2a21bc49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   rayCastOffsetUp: 4
   rayCastDistance: 4
   onResponseFinished:
@@ -163,20 +162,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  moveSpeed: 0.04
---- !u!114 &114386527811225206
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1349453294285046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 520a6e54a5c473248a80c22d7268da5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  model: {fileID: 1524830647648376}
   block: {fileID: 0}
-  collider: {fileID: 0}
+  moveSpeed: 0.04
+  value: 10
+  fallspeed: 10
+  fadeSpeed: 0.04
+  shrinkSpeed: 0.02
 --- !u!136 &136028361235702250
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -190,16 +182,3 @@ CapsuleCollider:
   m_Height: 2.050025
   m_Direction: 1
   m_Center: {x: 0, y: 0.5250125, z: 0}
---- !u!136 &136596732678475962
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1524830647648376}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}

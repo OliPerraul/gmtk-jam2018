@@ -10,6 +10,11 @@ namespace NSLevel
         public bool current = false;
         public bool target = false;
         public bool selectable = false;
+        public bool busy = false;
+
+       
+
+
 
 
         [SerializeField]
@@ -37,11 +42,11 @@ namespace NSLevel
         // Update is called once per frame
         void Update()
         {
-            //if (current)
-            //{
-            //    _meshRenderer.material.color = Color.magenta;
-            //}
-            if (unit)
+            if (busy)
+            {
+                _meshRenderer.material.color = Color.cyan;
+            }
+            else if (unit)
             {
                 _meshRenderer.material.color = Color.magenta;
             }
@@ -106,12 +111,12 @@ namespace NSLevel
 
             Ray ray = new Ray(transform.position, direction);
 
-            //TODO put layer elsewhere
             if (Physics.Raycast(ray, out hit, 2, NSGame.Resources.Instance.collisionLayerBlock))
             {
                 neighbour = hit.collider.GetComponent<BlockColliderData>().block;
                 return true;
             }
+
 
 
             neighbour = null;
@@ -129,6 +134,46 @@ namespace NSLevel
             //neighbour = null;
             //return false;
         }
+
+        public bool GetNeighbour(Vector3 direction, out Block neighbour, out NSEstablishment.Establishment establishment)
+        {
+            RaycastHit hit;
+
+            Ray ray = new Ray(transform.position, direction);
+
+            //TODO put layer elsewhere
+            if (Physics.Raycast(ray, out hit, 2, NSGame.Resources.Instance.collisionLayerEstablishment))
+            {
+                establishment = hit.collider.GetComponent<ColliderData>().owner.GetComponent<NSEstablishment.Establishment>();
+                neighbour = null;
+                return true;
+            }
+            else
+            if (Physics.Raycast(ray, out hit, 2, NSGame.Resources.Instance.collisionLayerBlock))
+            {
+                neighbour = hit.collider.GetComponent<BlockColliderData>().block;
+                establishment = null;
+                return true;
+            }
+            
+            neighbour = null;
+            establishment = null;
+            return false;
+
+            //Vector3 halfExtents = new Vector3(0.25f, 1, 0.25f);
+            //Collider[] colliders = Physics.OverlapBox(transform.position + direction, halfExtents);
+
+            //if (colliders.Length > 0)
+            //{
+            //    neighbour = colliders[0].GetComponent<BlockColliderData>().block;
+            //    return true;
+            //}
+
+            //neighbour = null;
+            //return false;
+        }
+
+
 
         // NEW SYSTEM, l, r, t, d
         // TODO use elsewhere
@@ -160,6 +205,37 @@ namespace NSLevel
 
             return adjacent;
         }
+
+
+        public void SetUnit(Unit unit)
+        {
+            unit.block = this;
+            this.unit = unit;
+            walkable = false;
+        }
+
+
+
+
+        public void OnInteractionFinished()
+        {
+            busy = false;
+        }
+
+
+        public void MarkBusy()
+        {
+            busy = true;
+           // Invoke("Unbusy", 5f);
+            Invoke("Unbusy", 10f);
+        }
+
+
+        private void Unbusy()
+        {
+            busy = false;
+        }
+
 
 
     }

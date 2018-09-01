@@ -17,7 +17,8 @@ public class Player : Unit, NSFSM.IContext {
     void Start () {
         //movement = new Vector3();
         fsm.Launch(this);
-	}
+        type = TYPE.PLAYER;
+    }
 	
 	// Update is called once per frame
 	void Update () {

@@ -8,7 +8,8 @@ namespace NSPlayer
 {
     public class Interact : PlayerState
     {
-
+        [SerializeField]
+        private float lagTime = 0.2f;
         private Block arrivalBlock = null;
 
         public override string GetName()
@@ -26,12 +27,13 @@ namespace NSPlayer
         public void DoInteract(Unit unit)
         {
             Context.FaceUnit(unit);
-            unit.onResponseFinished.AddListener(OnResponseReceived);
+            //unit.onResponseFinished.AddListener(OnResponseReceived);
             unit.Respond(Context);
+            Invoke("Finish", lagTime);
 
         }
 
-        public virtual void OnResponseReceived()
+        public virtual void Finish()
         {
             // DO not move character
             Context.fsm.SwitchState("Idle", Context.block.gameObject);

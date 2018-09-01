@@ -511,3 +511,4 @@ C:\Users\bigol\Desktop\repos\gmtk-jam\Project\Temp\bin\Debug\UnityEngine.Spatial
 C:\Users\bigol\Desktop\repos\gmtk-jam\Project\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\bigol\Desktop\repos\gmtk-jam\Project\obj\Debug\Assembly-CSharp.dll
 C:\Users\bigol\Desktop\repos\gmtk-jam\Project\obj\Debug\Assembly-CSharp.pdb
+C:\Users\bigol\Desktop\repos\gmtk-jam\Project\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

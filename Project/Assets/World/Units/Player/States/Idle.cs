@@ -31,9 +31,10 @@ namespace NSPlayer
             Context.block.unit = Context;
         }
 
-        public override void TryInteract(Block t)
+        public override bool TryInteract(Block t)
         {
             base.TryInteract(t);
+
             // TODO : Always know current block instead
             List<Block> adjacent = Context.block.GetAdjacentBlocks();
             foreach (Block block in adjacent)
@@ -42,11 +43,26 @@ namespace NSPlayer
                 // Do not move, just interact
                 if (block == t)
                 {
-                    Context.fsm.SwitchState("Interact", t.unit.gameObject, t.gameObject);
-                    return;
+                    DoInteract(t.unit, 2f);
+                    return true;
                 }
             }
+
+            return false;
         }
+
+        public void DoInteract(Unit unit, float delayTime)
+        {
+            //yield return new WaitForSeconds(delayTime);
+            Context.fsm.SwitchState("Interact", unit.gameObject, unit.block.gameObject);
+        }
+
+        //IEnumerator DoInteract(Unit unit, float delayTime)
+        //{
+        //    yield return new WaitForSeconds(delayTime);
+        //    Context.fsm.SwitchState("Interact", unit.gameObject, unit.block.gameObject);
+        //}
+
     }
 }
 

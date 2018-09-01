@@ -6,6 +6,19 @@ using UnityEngine.Events;
 
 public class Unit: MonoBehaviour
 {
+
+    public enum TYPE
+    {
+        DEFAULT,
+        PLAYER,
+        PUSHEABLE,
+        HARVESTABLE
+    }
+
+    [SerializeField]
+    public TYPE type = TYPE.DEFAULT;
+
+
     [SerializeField]
     protected float rayCastOffsetUp = 4;
     [SerializeField]
@@ -15,12 +28,10 @@ public class Unit: MonoBehaviour
     public UnityEvent onResponseFinished;
 
 
+    public GameObject model;
+
 
     public Block block;
-
-
-
-
 
 
 
@@ -50,6 +61,9 @@ public class Unit: MonoBehaviour
     public virtual void Respond(Unit unit)
     {
         Debug.Log("Interacted with.");
+        block.busy = true;
+        // Free busy block on interaction finished
+        onResponseFinished.AddListener(block.OnInteractionFinished);
     }
 
 
