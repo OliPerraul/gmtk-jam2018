@@ -1,0 +1,57 @@
+﻿
+Economy
+Unit Lifetime
+Unit value 
+	Carrots and pumkins
+Store
+
+Debt (Pay back the debt)
+	Pay back the debt
+
+Unit physical representation
+Unit Product
+Unit Tools (Start with three tools)
+
+
+TODO
+Some Units can be walked over (altough they get destroyed)
+
+
+Blocks
+	Fertile
+	Not Fertile
+
+
+Player Movement
+	push unit
+
+    Click another block to cancel movement
+    
+	Click a crop to breaks/harvest or push
+		Depending on the unit, clicking on the object either breaks it or pushes it
+
+
+	TODO:
+		Fix change target block while inbetween two blocks
+		Fix going down block one level
+		FIx wrong tile selectable. etc. types highlight.
+		
+
+
+
+
+	Establishment > Unit
+	
+
+	TODO
+		Move up a levels  on the field
+			--> IF implemented yields extra challenge
+
+	Equip
+	Tools
+		Axe, Rack, Shovel
+
+
+
+
+
