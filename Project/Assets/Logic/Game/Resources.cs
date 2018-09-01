@@ -27,6 +27,10 @@ namespace NSGame
             AXE
         }
 
+
+        public static LayerMask COLLISION_LAYER_BLOCK = 11;
+
+
     }
 }
 

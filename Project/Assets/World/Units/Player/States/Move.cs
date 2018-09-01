@@ -9,6 +9,10 @@ namespace NSPlayer
 {
     public class Move : Listening
     {
+
+        private Block interestBlock = null;
+
+
         public override string GetName()
         {
             return "Move";
@@ -18,9 +22,9 @@ namespace NSPlayer
         // Use this for initialization
         public override void Enter(AState from, GameObject arg = null)
         {
-            Block block = arg.GetComponent<Block>();
-            FindPath(block);
-            MoveToBlock(block);
+            interestBlock = arg.GetComponent<Block>();
+            FindPath(interestBlock);
+            MoveToBlock(interestBlock);
 
             turn = true;
             
@@ -30,8 +34,8 @@ namespace NSPlayer
 
         public override void Tick()
         {
-            base.Tick();
             DoMove();
+            base.Tick();
         }
 
 
@@ -155,10 +159,21 @@ namespace NSPlayer
             }
             else
             {
-                RemoveSelectableBlocks();
-                moving = false;
-                Context.fsm.SwitchState("Idle");
                 turn = false;
+                moving = false;
+
+                // Interact
+                if (interestBlock.unit)
+                {
+                    Context.fsm.SwitchState("Interact", interestBlock.unit.gameObject);
+
+                }
+                else
+                {
+                    RemoveSelectableBlocks();
+                    Context.fsm.SwitchState("Idle");
+
+                }
 
             }
         }

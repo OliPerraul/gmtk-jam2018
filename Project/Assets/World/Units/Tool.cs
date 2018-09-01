@@ -6,13 +6,8 @@ using NSLevel;
 
 namespace NSUnit
 {
-    // Carrots, Pumkin, grass, 
-
-
-    public class Harvestable
+    public class Tool : Unit
     {
 
     }
-
 }
-

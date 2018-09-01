@@ -11,6 +11,10 @@ namespace NSLevel
         public bool target = false;
         public bool selectable = false;
 
+
+        [SerializeField]
+        public Unit unit;
+
         [SerializeField]
         private MeshRenderer _meshRenderer;
 
@@ -95,6 +99,23 @@ namespace NSLevel
                 }
             }
         }
+
+        public bool GetNeighbour(Vector3 direction, out Block neighbour)
+        {
+            Vector3 halfExtents = new Vector3(0.25f, 1, 0.25f);
+            Collider[] colliders = Physics.OverlapBox(transform.position + direction, halfExtents);
+
+            if (colliders.Length > 0)
+            {
+                neighbour = colliders[0].GetComponent<BlockColliderData>().block;
+                return true;
+            }
+
+            neighbour = null;
+            return false;
+        }
+
+
     }
 
 }

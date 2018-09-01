@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using NSLevel;
 
-public class Unit: MonoBehaviour
+
+namespace NSUnit
 {
+    // Carrots, Pumkin, grass, 
+
+
+    public class Harvestable : Unit
+    {
+
+    }
 
 }
 

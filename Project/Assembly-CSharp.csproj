@@ -10,7 +10,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{E8FB92B1-AE8E-1D59-39EE-135E29E18820}</ProjectGuid>
+    <ProjectGuid>{5B9FF267-005F-A3BF-219E-FEAE2D8C894F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -118,25 +118,25 @@
     <Compile Include="Assets\World\Camera\RTS_Camera\Demo\TargetSelector.cs" />
     <Compile Include="Assets\World\Camera\RTS_Camera\Scripts\RTS_Camera.cs" />
     <Compile Include="Assets\World\Camera\ThirdPersonCamera.cs" />
-    <Compile Include="Assets\World\Characters\Player\Player.cs" />
-    <Compile Include="Assets\World\Characters\Player\States\GroundedMovement.cs" />
-    <Compile Include="Assets\World\Characters\Player\States\Idle.cs" />
-    <Compile Include="Assets\World\Characters\Player\States\Interact.cs" />
-    <Compile Include="Assets\World\Characters\Player\States\Listening.cs" />
-    <Compile Include="Assets\World\Characters\Player\States\Move.cs" />
-    <Compile Include="Assets\World\Characters\Player\States\PlayerState.cs" />
     <Compile Include="Assets\World\Establishments\Establishment.cs" />
     <Compile Include="Assets\World\Establishments\Farm.cs" />
     <Compile Include="Assets\World\Establishments\Store.cs" />
-    <Compile Include="Assets\World\Harvestable.cs" />
     <Compile Include="Assets\World\Level\Block.cs" />
     <Compile Include="Assets\World\Level\BlockColliderData.cs" />
     <Compile Include="Assets\World\Level\BlockHighlight.cs" />
     <Compile Include="Assets\World\Level\BlockSelect.cs" />
     <Compile Include="Assets\World\Level\Level.cs" />
-    <Compile Include="Assets\World\Pusheable.cs" />
-    <Compile Include="Assets\World\Tool.cs" />
-    <Compile Include="Assets\World\Unit.cs" />
+    <Compile Include="Assets\World\Units\Harvestable.cs" />
+    <Compile Include="Assets\World\Units\Player\Player.cs" />
+    <Compile Include="Assets\World\Units\Player\States\GroundedMovement.cs" />
+    <Compile Include="Assets\World\Units\Player\States\Idle.cs" />
+    <Compile Include="Assets\World\Units\Player\States\Interact.cs" />
+    <Compile Include="Assets\World\Units\Player\States\Listening.cs" />
+    <Compile Include="Assets\World\Units\Player\States\Move.cs" />
+    <Compile Include="Assets\World\Units\Player\States\PlayerState.cs" />
+    <Compile Include="Assets\World\Units\Pusheable.cs" />
+    <Compile Include="Assets\World\Units\Tool.cs" />
+    <Compile Include="Assets\World\Units\Unit.cs" />
     <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_TransparentOverlay.shader" />
     <None Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\README.txt" />
@@ -174,16 +174,16 @@
     <None Include="Assets\ProCore\ProBuilder\readme.txt" />
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_SmoothingPreview.shader" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/bigol/Desktop/repos/gmtkj-jam/gmtkj-practice2/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/bigol/Desktop/repos/gmtk-jam/Project/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/bigol/Desktop/repos/gmtkj-jam/gmtkj-practice2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/bigol/Desktop/repos/gmtk-jam/Project/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/bigol/Desktop/repos/gmtkj-jam/gmtkj-practice2/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/bigol/Desktop/repos/gmtk-jam/Project/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/bigol/Desktop/repos/gmtkj-jam/gmtkj-practice2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/bigol/Desktop/repos/gmtk-jam/Project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -384,19 +384,19 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="ProBuilderCore-Unity5">
-      <HintPath>C:/Users/bigol/Desktop/repos/gmtkj-jam/gmtkj-practice2/Assets/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
+      <HintPath>C:/Users/bigol/Desktop/repos/gmtk-jam/Project/Assets/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
     </Reference>
     <Reference Include="ProBuilderMeshOps-Unity5">
-      <HintPath>C:/Users/bigol/Desktop/repos/gmtkj-jam/gmtkj-practice2/Assets/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
+      <HintPath>C:/Users/bigol/Desktop/repos/gmtk-jam/Project/Assets/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
     </Reference>
     <Reference Include="KdTreeLib">
-      <HintPath>C:/Users/bigol/Desktop/repos/gmtkj-jam/gmtkj-practice2/Assets/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
+      <HintPath>C:/Users/bigol/Desktop/repos/gmtk-jam/Project/Assets/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
     </Reference>
     <Reference Include="pb_Stl">
-      <HintPath>C:/Users/bigol/Desktop/repos/gmtkj-jam/gmtkj-practice2/Assets/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
+      <HintPath>C:/Users/bigol/Desktop/repos/gmtk-jam/Project/Assets/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
     </Reference>
     <Reference Include="Poly2Tri">
-      <HintPath>C:/Users/bigol/Desktop/repos/gmtkj-jam/gmtkj-practice2/Assets/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
+      <HintPath>C:/Users/bigol/Desktop/repos/gmtk-jam/Project/Assets/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/bigol/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NSTacticsMovement;
 
-public class Player : MonoBehaviour, NSFSM.IContext {
+public class Player : Unit, NSFSM.IContext {
 
     public NSGame.Resources.TOOL_TYPE equippedTool;
     public InputControllerDefault inputs;
@@ -23,8 +23,5 @@ public class Player : MonoBehaviour, NSFSM.IContext {
 	void Update () {
         fsm.Tick();
 	}
-
-
-
 
 }
