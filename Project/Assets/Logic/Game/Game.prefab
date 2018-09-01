@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4603467214394328}
   - component: {fileID: 114490268577119054}
   - component: {fileID: 114562171106874722}
+  - component: {fileID: 114414597686605376}
   m_Layer: 0
   m_Name: Resources
   m_TagString: Untagged
@@ -257,6 +258,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fsm: {fileID: 114858608723126644}
+--- !u!114 &114414597686605376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1309318481010430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8652f30b331c28f46aaa4f799464bef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  toolRack: {fileID: 0}
+  toolShovel: {fileID: 0}
+  toolAxe: {fileID: 0}
+  store: {fileID: 0}
+  kiosk: {fileID: 0}
+  tallGrass: {fileID: 0}
+  tree: {fileID: 1024843714337506, guid: 8f91954a85588484f9485a0fb9842b1c, type: 2}
+  blockGrass: {fileID: 1961345387147292, guid: 43e85e837b37df94e8d029c74f2a157d, type: 2}
+  blockDirtFull: {fileID: 1961345387147292, guid: 43e85e837b37df94e8d029c74f2a157d,
+    type: 2}
 --- !u!114 &114455291935298406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -288,7 +311,7 @@ MonoBehaviour:
     m_Bits: 2048
   collisionLayerEstablishment:
     serializedVersion: 2
-    m_Bits: 11
+    m_Bits: 8192
   harvestable: {fileID: 1345867394106320, guid: d0433b6e496e7f344908e9ae703b80bc,
     type: 2}
   pusheable: {fileID: 1850285463091846, guid: d53f98ecad2329d459fde99801b56cba, type: 2}
@@ -305,6 +328,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   components: []
+  mapWidth: 20
+  mapHeight: 20
+  percentWall: 20
+  percentBorderWall: 10
+  percentTree: 10
 --- !u!114 &114562171106874722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -332,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 0
+  rent: 10000
 --- !u!114 &114832057143123530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -357,7 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   states:
-  - {fileID: 114832057143123530}
   - {fileID: 114503784959599616}
+  - {fileID: 114832057143123530}
   - {fileID: 114455291935298406}
   ________currentState_______: {fileID: 0}

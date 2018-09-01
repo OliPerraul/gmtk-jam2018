@@ -136,3 +136,23 @@ Player Movement
 
             selectableBlocks.Clear();
         }
+
+
+
+
+
+
+		//
+
+		Flat Ground
+
+		Tall Grass
+		
+
+		Trees
+
+		Shops
+			Kiosk
+			Shop
+
+		
