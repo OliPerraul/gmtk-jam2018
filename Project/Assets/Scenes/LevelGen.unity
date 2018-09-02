@@ -468,7 +468,6 @@ GameObject:
   - component: {fileID: 208229111}
   - component: {fileID: 208229113}
   - component: {fileID: 208229112}
-  - component: {fileID: 208229114}
   m_Layer: 10
   m_Name: Level
   m_TagString: Untagged
@@ -524,19 +523,6 @@ MonoBehaviour:
   cellSize: 2
   blocksParent: {fileID: 208229110}
   blocks: []
---- !u!65 &208229114
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 65461289388393488, guid: 312d03061acbd7c4b8159936e088af59,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 208229110}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &419108114
 Prefab:
   m_ObjectHideFlags: 0
@@ -576,6 +562,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114490268577119054, guid: 729968f16635d9b4a9f4dcdded5be24e,
+        type: 2}
+      propertyPath: harvestable
+      value: 
+      objectReference: {fileID: 1345867394106320, guid: d0433b6e496e7f344908e9ae703b80bc,
+        type: 2}
+    - target: {fileID: 114490268577119054, guid: 729968f16635d9b4a9f4dcdded5be24e,
+        type: 2}
+      propertyPath: pusheable
+      value: 
+      objectReference: {fileID: 1850285463091846, guid: d53f98ecad2329d459fde99801b56cba,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 729968f16635d9b4a9f4dcdded5be24e, type: 2}
   m_IsPrefabAsset: 0

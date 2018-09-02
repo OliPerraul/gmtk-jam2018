@@ -273,13 +273,18 @@ MonoBehaviour:
   toolRack: {fileID: 0}
   toolShovel: {fileID: 0}
   toolAxe: {fileID: 0}
-  store: {fileID: 0}
+  store: {fileID: 1892374684900542, guid: 45b7e54cd072cd047b04bc3fdba498bc, type: 2}
   kiosk: {fileID: 1892374684900542, guid: f47bc98b6c18230488cd2649489c62ed, type: 2}
   tallGrass: {fileID: 1936783855742978, guid: 0de5c23385116474092cf040977f8eee, type: 2}
   tree: {fileID: 1549162988073548, guid: 7b5c626e42057204681c4a6ec5546beb, type: 2}
   blockGrass: {fileID: 1961345387147292, guid: 43e85e837b37df94e8d029c74f2a157d, type: 2}
   blockDirtFull: {fileID: 1961345387147292, guid: 43e85e837b37df94e8d029c74f2a157d,
     type: 2}
+  carrotSeeds: {fileID: 1780252689141772, guid: 49e49582d9833ac4cbe3e852c0a8a810,
+    type: 2}
+  pumkinSeeds: {fileID: 1780252689141772, guid: 852daba2925e97f4787b0ca682bd7ad4,
+    type: 2}
+  Sheep: {fileID: 0}
 --- !u!114 &114455291935298406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -312,9 +317,8 @@ MonoBehaviour:
   collisionLayerEstablishment:
     serializedVersion: 2
     m_Bits: 8192
-  harvestable: {fileID: 1345867394106320, guid: d0433b6e496e7f344908e9ae703b80bc,
-    type: 2}
-  pusheable: {fileID: 1850285463091846, guid: d53f98ecad2329d459fde99801b56cba, type: 2}
+  harvestable: {fileID: 0}
+  pusheable: {fileID: 0}
 --- !u!114 &114503784959599616
 MonoBehaviour:
   m_ObjectHideFlags: 1

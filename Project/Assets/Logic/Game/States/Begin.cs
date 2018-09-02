@@ -52,9 +52,10 @@ namespace NSGame
             map.percentBordersAreWall = percentBorderWall;
             map.percentTree = percentTree;
             map.Prepare();
+            //NOT AS ADVERTISED
             map.RemoveInBetween();
 
-            map.PrintMap();
+            //map.PrintMap();
 
            
            // obsIDMat = GetComponent<NSLevel.Generator>().GetObsIDMatrix();
@@ -192,7 +193,7 @@ namespace NSGame
 
 
             PlaceKiosk();
-           // PlaceStore();
+            PlaceStore();
 
            // NSLevel.Level.Instance.DoStart();
 
@@ -402,6 +403,206 @@ namespace NSGame
 
         }
 
+
+
+        public void PlaceStore()
+        {
+            GameObject obj;
+            int i;
+            int j;
+
+            /// DOWN
+            /// 
+
+            i = 0;
+            for (j = 0; j < map.Map.GetLength(0); j++)
+            {
+
+                bool found = true;
+                for (int xx = 0; xx < 2; xx++)
+                {
+                    try
+                    {
+                        if (map.Map[j + xx, 0] != 0)
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+                // Install Kiosk up
+                if (found)
+                {
+                    var v = -Vector3.forward;
+                    Vector3 position = blocks[j, i].transform.position + (v * 2f);
+
+                    //Make origin at the corner
+                    obj = Instantiate(NSLevel.Resources.Instance.store);
+                    obj.transform.position = position;
+                    obj.transform.SetParent(NSLevel.Level.Instance.transform);
+
+                    //obj.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+
+
+
+                    for (int xx = 0; xx < 4; xx++)
+                    {
+                        map.Map[j + xx, 0] = -1;
+                    }
+
+                    return;
+                }
+
+            }
+
+
+
+            /// LEFT
+            for (i = 0; i < map.Map.GetLength(1); i++)
+            {
+
+                bool found = true;
+                for (int xx = 0; xx < 2; xx++)
+                {
+                    try
+                    {
+                        if (map.Map[0, i + xx] != 0)
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+                // Install Kiosk up
+                if (found)
+                {
+
+                    for (int xx = 0; xx < 2; xx++)
+                    {
+                        map.Map[0, i + xx - 2] = -1;
+
+                    }
+
+                    var v = -Vector3.left;
+                    Vector3 position = blocks[j, i].transform.position + (v * 2f);
+
+                    //Make origin at the corner
+                    obj = Instantiate(NSLevel.Resources.Instance.store);
+                    obj.transform.position = position;// + Vector3.left;
+                    obj.transform.SetParent(NSLevel.Level.Instance.transform);
+
+                    //obj.transform.rotation = Quaternion.LookRotation(Vector3.left, Vector3.left);
+
+                    return;
+                }
+
+            }
+
+            /// UP
+            /// 
+            i = map.Map.GetLength(1) - 1;
+            for (j = 0; j < map.Map.GetLength(0); j++)
+            {
+
+                bool found = true;
+                for (int xx = 0; xx < 2; xx++)
+                {
+                    try
+                    {
+                        if (map.Map[j + xx, i] != 0)
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+                // Install Kiosk up
+                if (found)
+                {
+                    var v = Vector3.forward;
+                    Vector3 position = blocks[j, i].transform.position + (v * 4f);
+
+                    //Make origin at the corner
+                    obj = Instantiate(NSLevel.Resources.Instance.store);
+                    obj.transform.position = position;
+                    obj.transform.SetParent(NSLevel.Level.Instance.transform);
+
+                    //obj.transform.rotation = Quaternion.LookRotation(-Vector3.forward, Vector3.up);
+
+
+                    for (int xx = 0; xx < 2; xx++)
+                    {
+                        map.Map[j - 2 + xx, i] = -1;
+                    }
+
+                    return;
+                }
+
+            }
+
+
+            /// RIGHT
+            /// 
+            j = map.Map.GetLength(0) - 1;
+            for (i = 0; i < map.Map.GetLength(0); i++)
+            {
+
+                bool found = true;
+                for (int xx = 0; xx < 4; xx++)
+                {
+                    try
+                    {
+                        if (map.Map[j, i + xx] != 0)
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+                    catch (System.Exception e)
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+                // Install Kiosk up
+                if (found)
+                {
+                    var v = Vector3.right;
+                    Vector3 position = blocks[j, i].transform.position + (v * 4f);
+
+                    //Make origin at the corner
+                    obj = Instantiate(NSLevel.Resources.Instance.store);
+                    obj.transform.position = position;
+                    obj.transform.SetParent(NSLevel.Level.Instance.transform);
+
+                    //obj.transform.rotation = Quaternion.LookRotation(Vector3.right, Vector3.up);
+
+                    for (int xx = 0; xx < 2; xx++)
+                    {
+                        map.Map[j, i - 2 + xx] = -1;
+                    }
+
+                    return;
+                }
+
+            }
+
+        }
 
 
 

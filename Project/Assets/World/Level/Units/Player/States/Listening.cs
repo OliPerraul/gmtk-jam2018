@@ -44,67 +44,6 @@ namespace NSPlayer
                         // Only works on idle
                         if (TryInteract(t)) { }
 
-
-
-                        // TODO move and interact ??
-                        ////Check path with neighbour
-                        //Path bestPath = null;
-
-                        //Block neighbour;
-                        //if (t.GetNeighbour(t.transform.forward, out neighbour))
-                        //{
-                        //    if (FindPath(neighbour))
-                        //    {
-                        //        Path path = CreatePath(neighbour);
-                        //        bestPath = path;
-                        //    }
-                        //}
-
-                        //if (t.GetNeighbour(-t.transform.forward, out neighbour))
-                        //{
-                        //    if (FindPath(neighbour))
-                        //    {
-                        //        Path path = CreatePath(neighbour);
-                        //        if (path.cost < bestPath.cost)
-                        //        {
-                        //            bestPath = path;
-                        //        }
-                        //    }
-                        //}
-
-                        //if (t.GetNeighbour(t.transform.right, out neighbour))
-                        //{
-                        //    if (FindPath(neighbour))
-                        //    {
-                        //        Path path = CreatePath(neighbour);
-                        //        if (path.cost < bestPath.cost)
-                        //        {
-                        //            bestPath = path;
-                        //        }
-                        //    }
-                        //}
-
-                        //if (t.GetNeighbour(-t.transform.right, out neighbour))
-                        //{
-                        //    if (FindPath(neighbour))
-                        //    {
-                        //        Path path = CreatePath(neighbour);
-                        //        if (path.cost < bestPath.cost)
-                        //        {
-                        //            bestPath = path;
-                        //        }
-                        //    }
-                        //}
-
-                        //if (bestPath != null)
-                        //{
-                        //    path = bestPath;
-                        //    path.interactOnFinished = true;
-                        //    path.interactionUnit = t.unit;
-                        //    Context.fsm.SwitchState("Move", bestPath.gameObject);
-                        //}
-
-
                     }
                     // If sel block alone
                     else if (t.selectable && t.walkable)
@@ -119,6 +58,14 @@ namespace NSPlayer
                     }
 
                 }
+                else
+                if (Physics.Raycast(ray, out hit, 1000f, NSGame.Resources.Instance.collisionLayerEstablishment))
+                {
+                    var col = hit.collider.GetComponent<ColliderData>();
+                    var est = col.owner.GetComponent<NSEstablishment.Establishment>();
+                    TryInteract(est);
+                }
+
             }
         }
 
@@ -129,12 +76,20 @@ namespace NSPlayer
             // NOthing
             return false;
         }
-        
-        
-        
-        
-        
-        
+
+
+        // Overriden
+        public virtual bool TryInteract(NSEstablishment.Establishment est)
+        {
+            // NOthing
+            return false;
+        }
+
+
+
+
+
+
         /// BEGIN
         // TODO USE UNIT METHODS
 

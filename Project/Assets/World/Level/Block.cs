@@ -15,7 +15,8 @@ namespace NSLevel
         [SerializeField]
         bool isShop = false;
 
-
+        [SerializeField]
+        bool isKiosk = false;
 
         [SerializeField]
         public Unit unit;
@@ -43,6 +44,11 @@ namespace NSLevel
         void Update()
         {
             if (isShop)
+            {
+                _meshRenderer.material.color = Color.yellow;
+            }
+            else
+            if (isKiosk)
             {
                 _meshRenderer.material.color = Color.green;
             }
@@ -206,6 +212,41 @@ namespace NSLevel
             if (GetNeighbour(-transform.right, out neighbour))
             {
                 adjacent.Add(neighbour);
+            }
+
+            return adjacent;
+        }
+
+
+        public List<NSEstablishment.Establishment> GetAdjacentEstablishment(int dummy)
+        {
+            List<NSEstablishment.Establishment> adjacent = new List<NSEstablishment.Establishment>();
+
+            Block neighbour;
+            NSEstablishment.Establishment estb;
+            if (GetNeighbour(transform.forward, out neighbour,out estb))
+            {
+                if (estb != null)
+                    adjacent.Add(estb);
+
+            }
+
+            if (GetNeighbour(-transform.forward, out neighbour, out estb))
+            {
+                if (estb != null)
+                    adjacent.Add(estb);
+            }
+
+            if (GetNeighbour(transform.right, out neighbour, out estb))
+            {
+                if (estb != null)
+                    adjacent.Add(estb);
+            }
+
+            if (GetNeighbour(-transform.right, out neighbour, out estb))
+            {
+                if (estb != null)
+                    adjacent.Add(estb);
             }
 
             return adjacent;

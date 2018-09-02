@@ -24,6 +24,7 @@ namespace NSGame
 
         public enum TOOL_TYPE
         {
+            NONE,
             RACK,
             SHOVEL,
             AXE

@@ -19,55 +19,84 @@ namespace NSPlayer
             if (Input.GetKeyDown(KeyCode.LeftArrow) == true)
             {
                 Block t;
-                if (Context.block.GetNeighbour(Vector3.left,out  t))
+                NSEstablishment.Establishment estab;
+                if (Context.block.GetNeighbour(Vector3.left,out  t, out estab))
                 {
-                    if (t.unit != null)
+                    //Interact Estab
+                    if (t == null)
                     {
-                        TryInteract(t);
+                        DoInteract(estab, 2f);
                     }
                     else
-                    if (FindPath(t))
                     {
-                        Path path = CreatePath(t);
-                        path.interactOnFinished = false;
-                        Context.fsm.SwitchState("Move", path.gameObject);
+
+                        if (t.unit != null)
+                        {
+                            TryInteract(t);
+                        }
+                        else
+                        if (FindPath(t))
+                        {
+                            Path path = CreatePath(t);
+                            path.interactOnFinished = false;
+                            Context.fsm.SwitchState("Move", path.gameObject);
+                        }
                     }
                 }
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow) == true)
             {
                 Block t;
-                if (Context.block.GetNeighbour(-Vector3.left, out t))
+                NSEstablishment.Establishment estab;
+                if (Context.block.GetNeighbour(-Vector3.left, out t, out estab))
                 {
-                    if (t.unit != null)
+
+                    //Interact Estab
+                    if (t == null)
                     {
-                        TryInteract(t);
+                        DoInteract(estab, 2f);
                     }
                     else
-                    if (FindPath(t))
                     {
-                        Path path = CreatePath(t);
-                        path.interactOnFinished = false;
-                        Context.fsm.SwitchState("Move", path.gameObject);
+                        if (t.unit != null)
+                        {
+                            TryInteract(t);
+                        }
+                        else
+                    if (FindPath(t))
+                        {
+                            Path path = CreatePath(t);
+                            path.interactOnFinished = false;
+                            Context.fsm.SwitchState("Move", path.gameObject);
+                        }
                     }
                 }
 
             }
             else if (Input.GetKeyDown(KeyCode.UpArrow) == true)
             {
+               // Block t;
                 Block t;
-                if (Context.block.GetNeighbour(Vector3.forward, out t))
+                NSEstablishment.Establishment estab;
+                if (Context.block.GetNeighbour(Vector3.forward, out t, out estab))
                 {
-                    if (t.unit != null)
+                    if (t == null)
                     {
-                        TryInteract(t);
+                        DoInteract(estab, 2f);
                     }
                     else
-                    if (FindPath(t))
                     {
-                        Path path = CreatePath(t);
-                        path.interactOnFinished = false;
-                        Context.fsm.SwitchState("Move", path.gameObject);
+                        if (t.unit != null)
+                        {
+                            TryInteract(t);
+                        }
+                        else
+                        if (FindPath(t))
+                        {
+                            Path path = CreatePath(t);
+                            path.interactOnFinished = false;
+                            Context.fsm.SwitchState("Move", path.gameObject);
+                        }
                     }
                 }
 
@@ -76,18 +105,26 @@ namespace NSPlayer
             {
 
                 Block t;
-                if (Context.block.GetNeighbour(-Vector3.forward, out t))
+                NSEstablishment.Establishment estab;
+                if (Context.block.GetNeighbour(-Vector3.forward, out t, out estab))
                 {
-                    if (t.unit != null)
+                    if (t == null)
                     {
-                        TryInteract(t);
+                        DoInteract(estab, 2f);
                     }
                     else
-                    if (FindPath(t))
                     {
-                        Path path = CreatePath(t);
-                        path.interactOnFinished = false;
-                        Context.fsm.SwitchState("Move", path.gameObject);
+                        if (t.unit != null)
+                        {
+                            TryInteract(t);
+                        }
+                        else
+                        if (FindPath(t))
+                        {
+                            Path path = CreatePath(t);
+                            path.interactOnFinished = false;
+                            Context.fsm.SwitchState("Move", path.gameObject);
+                        }
                     }
                 }
             }
@@ -111,6 +148,14 @@ namespace NSPlayer
             Context.block.unit = Context;
         }
 
+        public override void Exit(AState to)
+        {
+            Context.block.unit = null;
+            Context.block.walkable = true; 
+            base.Exit(to);
+        }
+
+
         public override bool TryInteract(Block t)
         {
             base.TryInteract(t);
@@ -131,10 +176,39 @@ namespace NSPlayer
             return false;
         }
 
+        public override bool TryInteract(NSEstablishment.Establishment est)
+        {
+            base.TryInteract(est);
+
+            // TODO : Always know current block instead
+            List<NSEstablishment.Establishment> adjacent = Context.block.GetAdjacentEstablishment(5);
+            foreach (NSEstablishment.Establishment o in adjacent)
+            {
+                //TODO /REFACTOR
+                // Do not move, just interact
+                if (o == est)
+                {
+                    DoInteract(est, 2f);
+                    return true;
+                }
+            }
+
+            return false;
+
+        }
+
+
         public void DoInteract(Unit unit, float delayTime)
         {
             //yield return new WaitForSeconds(delayTime);
             Context.fsm.SwitchState("Interact", unit.gameObject, unit.block.gameObject);
+        }
+
+
+        public void DoInteract(NSEstablishment.Establishment est, float delayTime)
+        {
+            //yield return new WaitForSeconds(delayTime);
+            Context.fsm.SwitchState("Interact", est.gameObject, Context.block.gameObject);
         }
 
         //IEnumerator DoInteract(Unit unit, float delayTime)

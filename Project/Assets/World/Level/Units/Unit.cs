@@ -33,6 +33,8 @@ public class Unit: MonoBehaviour
 
     public Block block;
 
+    public Vector3 direction;
+
 
 
     private Block GetTargetBlock(GameObject target)
@@ -71,7 +73,18 @@ public class Unit: MonoBehaviour
     public void FaceUnit(Unit unit)
     {
         Vector3 forward = unit.transform.position - transform.position;
-        transform.rotation = Quaternion.LookRotation(forward, Vector3.up);  
+        transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
+        direction = forward;
+        
+
+    }
+
+    public void FaceEstablishment(NSEstablishment.Establishment estab)
+    {
+        Vector3 forward = estab.transform.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
+        direction = forward;
+
 
     }
 

@@ -123,7 +123,7 @@
     <Compile Include="Assets\World\Camera\ThirdPersonCamera.cs" />
     <Compile Include="Assets\World\Establishments\Establishment.cs" />
     <Compile Include="Assets\World\Establishments\Kiosk.cs" />
-    <Compile Include="Assets\World\Establishments\Store.cs" />
+    <Compile Include="Assets\World\Establishments\Shop.cs" />
     <Compile Include="Assets\World\Level\Block.cs" />
     <Compile Include="Assets\World\Level\BlockColliderData.cs" />
     <Compile Include="Assets\World\Level\BlockHighlight.cs" />

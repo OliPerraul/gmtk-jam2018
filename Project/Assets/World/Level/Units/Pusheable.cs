@@ -33,8 +33,8 @@ namespace NSUnit
 
 
         [SerializeField]
-        private float moveSpeed = 0.04f;
-        private bool stable = true;
+        public float moveSpeed = 0.8f;
+        public bool stable = true;
         private bool falling = false;
         private bool destroy = false;
         private bool sold = false;
@@ -55,20 +55,20 @@ namespace NSUnit
 
         private Vector3 offsetyV;
 
-        Vector3 targetPosition;
+        public Vector3 targetPosition;
 
         Color invis;
 
-        Vector3 direction = Vector3.one;
 
-
-
+        
         private void Start()
         {
             type = TYPE.PUSHEABLE;
             invis = model.GetComponent<MeshRenderer>().material.color;
             invis.a = 0;
             offsetyV = new Vector3(0, goToStoreY, 0);
+
+            moveSpeed = 0.8f;
         }
 
 
@@ -79,7 +79,6 @@ namespace NSUnit
             if (!stable)
             {
                 //transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed);
-
                 if (sold)
                 {
                     transform.position = Vector3.Lerp(transform.position, targetPosition+offsetyV, moveSpeed);
@@ -90,9 +89,8 @@ namespace NSUnit
                 }
                 else
                 {
-                    transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed);
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed); // Vector3.Lerp(transform.position, targetPosition, moveSpeed);
                 }
-
 
 
                 if (VectorUtil.SufficientlyClose(transform.position, targetPosition))
@@ -113,9 +111,10 @@ namespace NSUnit
                     }
 
 
+                    transform.position = targetPosition;
                     stable = true;
                     onResponseFinished.Invoke();
-                    
+                                        
                     
                 }
 
@@ -129,29 +128,41 @@ namespace NSUnit
             base.Respond(unit);
             // TODO prompt player wait.
 
-            Vector3 direction = unit.transform.forward;
-            if (CanPush(direction))
+            if (CanPush(unit.direction))
             {
-                this.direction = direction;
+                direction = unit.direction;
                 Push(direction);
             }
         }
 
+        public void Respond(Unit unit, out bool success)
+        {
+            base.Respond(unit);
+            // TODO prompt player wait.
+            // NEVER REACH
+            success = false;
 
-        public void Push(Vector3 direction)
+            if (CanPush(unit.direction)) ///LOL oh well, i guess i shoulve used that
+            {
+                direction = unit.direction;
+                success = Push(direction);
+            }
+
+        }
+
+
+        public bool Push(Vector3 direction)
         {
             Block neighbour;
             NSEstablishment.Establishment establishment;
 
-            stable = false;
-            block.walkable = true;
-            block.unit = null;
             if (block.GetNeighbour(direction, out neighbour, out establishment))
             {
-
-                // We got an establishment
+                
                 if (neighbour == null)
                 {
+                    DoPush();
+
                     // Free busy block on interaction finished
                     onResponseFinished.AddListener(block.OnInteractionFinished);
 
@@ -161,6 +172,7 @@ namespace NSUnit
                     destroy = true;
                     Invoke("FinishInteractionIfSOld", 2f);
 
+                    return true;
 
                 }
                 else // We got a cube
@@ -169,9 +181,26 @@ namespace NSUnit
                     if (neighbour.unit != null && neighbour.unit.type == Unit.TYPE.PUSHEABLE)
                     {
                         // TODO Stack same pusheable item
-                        ((Pusheable)neighbour.unit).Respond(this);
+                        // If cant push next, then cant push
+                        bool success;
+                        ((Pusheable)neighbour.unit).Respond(this, out success);
+                        if (!success)
+                        {
+                            block.busy = false;
+                            return false;
+                        }
+
+                        DoPush();
+
+                    }
+                    else if (neighbour.unit != null && neighbour.unit.type != Unit.TYPE.PUSHEABLE)
+                    {
+                        // RETURN CANT MOVE
+                        block.busy = false;
+                        return false;
                     }
 
+                    DoPush();
 
                     // Free busy block on interraction finished
                     onResponseFinished.AddListener(neighbour.OnInteractionFinished);
@@ -183,13 +212,16 @@ namespace NSUnit
 
 
                     targetPosition = block.transform.position;
-
+                    return true;
                 }
 
             }
             else
             {
+                DoPush();
+
                Fall(direction);
+                return true;
             }
         }
 
@@ -215,6 +247,13 @@ namespace NSUnit
             onResponseFinished.Invoke();
         }
 
+
+        public void DoPush()
+        {
+            stable = false;
+            block.walkable = true;
+            block.unit = null;
+        }
 
 
     }

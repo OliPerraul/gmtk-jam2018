@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0c94f1a702aa34aa12304c086cff0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 3
   rayCastOffsetUp: 4
   rayCastDistance: 4
   onResponseFinished:

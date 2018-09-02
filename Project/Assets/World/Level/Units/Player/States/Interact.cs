@@ -20,8 +20,20 @@ namespace NSPlayer
         public override void Enter(AState from, params GameObject[] args)
         {
             base.Enter(from, args);
-            DoInteract(args[0].GetComponent<Unit>());
+            Unit unit = args[0].GetComponent<Unit>();
+
+            if (unit == null)
+            {// TRY interacting establishment
+               var estab =  args[0].GetComponent<NSEstablishment.Establishment>();
+                DoInteract(estab);
+            }
+            else
+            {
+                DoInteract(unit);
+            }
+
             arrivalBlock = args[1].GetComponent<Block>();
+            Context.fsm.SwitchState("Idle", Context.block.gameObject);
         }
         
         public void DoInteract(Unit unit)
@@ -32,6 +44,18 @@ namespace NSPlayer
             Invoke("Finish", lagTime);
 
         }
+
+        
+        public void DoInteract(NSEstablishment.Establishment esta)
+        {
+            Context.FaceEstablishment(esta);
+
+            //unit.onResponseFinished.AddListener(OnResponseReceived);
+            esta.Respond(Context);
+            Invoke("Finish", lagTime);
+
+        }
+
 
         public virtual void Finish()
         {

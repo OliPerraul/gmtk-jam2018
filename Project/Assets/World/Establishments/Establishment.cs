@@ -15,7 +15,10 @@ namespace NSEstablishment
             DoPulse();
         }
 
-
+        public virtual void Respond(Player pusheable)
+        {
+            DoPulse();
+        }
 
 
         public void DoPulse()

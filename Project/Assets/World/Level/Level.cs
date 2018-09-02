@@ -9,6 +9,9 @@ namespace NSLevel
     public class Level : MonoBehaviour
     {
 
+        public float heightItemDrop = 100f;
+        public float fallSpeed = .01f;
+
         public BlockSelect select;
 
         public Vector2Int size = new Vector2Int(256, 256);
@@ -33,10 +36,10 @@ namespace NSLevel
         {
 
             // TODO
-           // blocks = GameObjectUtil.CollapseChildrenToList<Block>(blocksParent);
+            // blocks = GameObjectUtil.CollapseChildrenToList<Block>(blocksParent);
             // TODO
-            
-            
+
+
             //cells = new Block[(int)size.x, (int)size.y];
             //RefreshGrid();
         }
@@ -44,6 +47,80 @@ namespace NSLevel
         public void DoStart()
         {
             blocks = GameObjectUtil.CollapseChildrenToList<Block>(blocksParent);
+        }
+
+
+        // CHeck good place for drop
+        public void RainSeedsBags(int quant)
+        {
+            int max = quant;
+            if (RandomUtils.RandomBoolean())
+                max++;
+            if (RandomUtils.RandomBoolean() && RandomUtils.RandomBoolean())
+                max++;
+            //if (RandomUtils.RandomBoolean())
+            //    max++;
+
+
+            int count = 0;
+            float startperc = 1f;
+            float percDif = .001f;
+            while (count != max)
+            {
+
+                foreach (Block block in blocks)
+                {
+                    if (block.walkable && !block.busy && block.unit == null)
+                    {
+                        if (RandomUtils.PercentChance(startperc))
+                        {
+                            startperc -= percDif;
+                            if (startperc < 0)
+                                startperc = 0;
+
+                            continue;
+                        }
+
+                        RainSingleSeedsBag(block);
+                        count++;
+
+                        if (count == max)
+                            break;
+                    }
+
+                }
+            }
+
+        }
+
+
+        public void RainSingleSeedsBag(Block block)
+        {
+            GameObject gameObject;
+
+            if (RandomUtils.RandomBoolean())
+            {
+                gameObject = Instantiate(NSLevel.Resources.Instance.carrotSeeds);
+            }
+            else
+            {
+                gameObject = Instantiate(NSLevel.Resources.Instance.carrotSeeds);
+            }
+
+            var seeds = gameObject.GetComponent<NSUnit.Pusheable>();
+
+            seeds.transform.position = block.transform.position + Vector3.up * heightItemDrop;
+            //  seeds
+            seeds.targetPosition = block.transform.position;
+            seeds.stable = false;
+
+            block.unit = seeds;
+            seeds.block = block;
+            block.walkable = false;
+            block.busy = true;
+
+            seeds.onResponseFinished.AddListener(block.OnInteractionFinished);
+
         }
 
 

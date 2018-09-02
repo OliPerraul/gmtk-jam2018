@@ -33,6 +33,12 @@ namespace NSLevel
         public GameObject tree;
         public GameObject blockGrass;
         public GameObject blockDirtFull;
+
+        [Header("Seeds (Falling)")]
+        public GameObject carrotSeeds;
+        public GameObject pumkinSeeds;
+        public GameObject Sheep;
+        // SHEEP?
     }
 
 

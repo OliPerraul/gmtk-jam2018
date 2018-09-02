@@ -5,7 +5,7 @@ using NSTacticsMovement;
 
 public class Player : Unit, NSFSM.IContext {
 
-    public NSGame.Resources.TOOL_TYPE equippedTool;
+    public NSUnit.Tool.TOOL_TYPE equippedTool;
     public InputControllerDefault inputs;
     public NSFSM.FSM fsm;
     public Animator anim;                      // Reference to the animator component.
@@ -25,4 +25,7 @@ public class Player : Unit, NSFSM.IContext {
         fsm.Tick();
 	}
 
+    
+
+    
 }

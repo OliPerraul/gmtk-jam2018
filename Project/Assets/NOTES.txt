@@ -138,10 +138,6 @@ Player Movement
         }
 
 
-
-
-
-
 		//
 
 		Flat Ground
@@ -154,10 +150,14 @@ Player Movement
 		Shops
 			Kiosk
 			Shop
-
-		
+	
 
 
 
 
 		/// NOTE PUSHING OBJECT TOGETHER SWAPS POS??
+
+
+
+		X2 X3 X4
+		/// MULTIPLIER WHEN PUSHED ITEMS IN A ROW
