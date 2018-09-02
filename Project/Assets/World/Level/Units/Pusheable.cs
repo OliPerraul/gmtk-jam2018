@@ -171,7 +171,9 @@ namespace NSUnit
 
             ///IF SEED READY TIO BE PLANTED, PLANT
             if ((pusheableType == PUSHEABLE_TYPE.CARROT_SEEDS || pusheableType == PUSHEABLE_TYPE.PUMKIN_SEEDS) &&
-                unit.GetComponent<Player>() != null && unit.GetComponent<Player>().equippedTool == Tool.TOOL_TYPE.SHOVEl)
+                unit.GetComponent<Player>() != null && unit.GetComponent<Player>().equippedTool == Tool.TOOL_TYPE.SHOVEl &&
+                block.fertile
+                )
             {
                 Pusheable pusheable = Instantiate(product).GetComponent<Pusheable>();
 

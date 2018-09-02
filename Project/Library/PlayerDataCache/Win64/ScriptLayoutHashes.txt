@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-C:/Users/bigol/Desktop/GMTKj/gmtkj-practice2.exe
+C:/Users/bigol/Desktop/GMTKj/Farmland Harvest.exe
 SceneListBegin?
 Assets/Scenes/StartMenu.unity
 Assets/Scenes/Main.unity
