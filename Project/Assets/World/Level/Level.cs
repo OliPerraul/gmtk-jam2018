@@ -33,13 +33,19 @@ namespace NSLevel
         {
 
             // TODO
-            //blocks = GameObjectUtil.CollapseChildrenToList<Block>(blocksParent);
+           // blocks = GameObjectUtil.CollapseChildrenToList<Block>(blocksParent);
             // TODO
             
             
             //cells = new Block[(int)size.x, (int)size.y];
             //RefreshGrid();
         }
+
+        public void DoStart()
+        {
+            blocks = GameObjectUtil.CollapseChildrenToList<Block>(blocksParent);
+        }
+
 
         //void RefreshGrid()
         //{

@@ -15,6 +15,84 @@ namespace NSPlayer
         public override void Tick()
         {
             base.Tick();
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow) == true)
+            {
+                Block t;
+                if (Context.block.GetNeighbour(Vector3.left,out  t))
+                {
+                    if (t.unit != null)
+                    {
+                        TryInteract(t);
+                    }
+                    else
+                    if (FindPath(t))
+                    {
+                        Path path = CreatePath(t);
+                        path.interactOnFinished = false;
+                        Context.fsm.SwitchState("Move", path.gameObject);
+                    }
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow) == true)
+            {
+                Block t;
+                if (Context.block.GetNeighbour(-Vector3.left, out t))
+                {
+                    if (t.unit != null)
+                    {
+                        TryInteract(t);
+                    }
+                    else
+                    if (FindPath(t))
+                    {
+                        Path path = CreatePath(t);
+                        path.interactOnFinished = false;
+                        Context.fsm.SwitchState("Move", path.gameObject);
+                    }
+                }
+
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow) == true)
+            {
+                Block t;
+                if (Context.block.GetNeighbour(Vector3.forward, out t))
+                {
+                    if (t.unit != null)
+                    {
+                        TryInteract(t);
+                    }
+                    else
+                    if (FindPath(t))
+                    {
+                        Path path = CreatePath(t);
+                        path.interactOnFinished = false;
+                        Context.fsm.SwitchState("Move", path.gameObject);
+                    }
+                }
+
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow) == true)
+            {
+
+                Block t;
+                if (Context.block.GetNeighbour(-Vector3.forward, out t))
+                {
+                    if (t.unit != null)
+                    {
+                        TryInteract(t);
+                    }
+                    else
+                    if (FindPath(t))
+                    {
+                        Path path = CreatePath(t);
+                        path.interactOnFinished = false;
+                        Context.fsm.SwitchState("Move", path.gameObject);
+                    }
+                }
+            }
+
+
         }
 
         public override void Enter(AState from, params GameObject[] args)

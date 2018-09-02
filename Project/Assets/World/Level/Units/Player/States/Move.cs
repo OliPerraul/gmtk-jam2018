@@ -42,7 +42,7 @@ namespace NSPlayer
                 Block t = path.stack.Peek();
                 Vector3 target = t.transform.position;
 
-                if (Vector3.Distance(Context.transform.position, target) >= 0.05f)
+                if (!VectorUtil.SufficientlyClose(Context.transform.position, target))
                 {
                     bool jump = Context.transform.position.y != target.y;
 

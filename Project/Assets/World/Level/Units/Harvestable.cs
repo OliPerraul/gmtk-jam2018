@@ -15,6 +15,9 @@ namespace NSUnit
 
         public int stackSize;
 
+        public Pusheable product;
+
+
 
         private void Start()
         {
@@ -51,7 +54,7 @@ namespace NSUnit
         public void Harvest()
         {
 
-            Pusheable pusheable = Instantiate(NSGame.Resources.Instance.pusheable).GetComponent<Pusheable>();
+            Pusheable pusheable = Instantiate(product).GetComponent<Pusheable>();
 
             pusheable.transform.position = block.transform.position;
 

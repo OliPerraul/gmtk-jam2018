@@ -256,6 +256,8 @@ namespace NSPlayer
 
         public void ComputeAdjacencyLists(float jumpHeight, Block target)
         {
+            //NSLevel.Level.Instance.blocks
+
             foreach (Block block in NSLevel.Level.Instance.blocks)
             {
                 block.FindNeighbors(jumpHeight, target);

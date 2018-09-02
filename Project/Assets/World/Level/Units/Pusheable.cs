@@ -91,7 +91,6 @@ namespace NSUnit
                 else
                 {
                     transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed);
-
                 }
 
 
@@ -160,6 +159,8 @@ namespace NSUnit
                     targetPosition = transform.position + direction * 2;
                     sold = true;
                     destroy = true;
+                    Invoke("FinishInteractionIfSOld", 2f);
+
 
                 }
                 else // We got a cube
@@ -207,6 +208,12 @@ namespace NSUnit
             falling = true;
             destroy = true;
          }
+
+
+        public void FinishInteractionIfSOld()
+        {
+            onResponseFinished.Invoke();
+        }
 
 
 

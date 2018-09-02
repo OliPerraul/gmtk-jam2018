@@ -269,14 +269,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8652f30b331c28f46aaa4f799464bef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1542060674736534, guid: 187f3e1371559f04184c83096b3d253c, type: 2}
   toolRack: {fileID: 0}
   toolShovel: {fileID: 0}
   toolAxe: {fileID: 0}
   store: {fileID: 0}
-  kiosk: {fileID: 0}
-  tallGrass: {fileID: 0}
-  tree: {fileID: 1024843714337506, guid: 8f91954a85588484f9485a0fb9842b1c, type: 2}
+  kiosk: {fileID: 1892374684900542, guid: f47bc98b6c18230488cd2649489c62ed, type: 2}
+  tallGrass: {fileID: 1936783855742978, guid: 0de5c23385116474092cf040977f8eee, type: 2}
+  tree: {fileID: 1549162988073548, guid: 7b5c626e42057204681c4a6ec5546beb, type: 2}
   blockGrass: {fileID: 1961345387147292, guid: 43e85e837b37df94e8d029c74f2a157d, type: 2}
   blockDirtFull: {fileID: 1961345387147292, guid: 43e85e837b37df94e8d029c74f2a157d,
     type: 2}
@@ -330,9 +330,14 @@ MonoBehaviour:
   components: []
   mapWidth: 20
   mapHeight: 20
-  percentWall: 20
-  percentBorderWall: 10
-  percentTree: 10
+  percentWall: 5
+  percentBorderWall: 5
+  percentTree: 20
+  treeVal: 2
+  playerVal: 3
+  toolVal0: 4
+  toolVal1: 5
+  toolVal3: 6
 --- !u!114 &114562171106874722
 MonoBehaviour:
   m_ObjectHideFlags: 1

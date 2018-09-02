@@ -332,7 +332,7 @@ namespace NSLevel
             return empty;
         }
 
-        public MapHandler(int mapWidth, int mapHeight, int[,] map, int percentWalls)
+        public MapHandler(int mapWidth, int mapHeight, ref int[,] map, int percentWalls)
         {
             this.MapWidth = mapWidth;
             this.MapHeight = mapHeight;
@@ -391,7 +391,7 @@ namespace NSLevel
                         int idx = playerVal;
                         int count = 0;
 
-                        while (count != 3)
+                        while (count < 3)
                         {
 
                             for (int i = row - 1; i < row + 1; i++)
@@ -403,7 +403,6 @@ namespace NSLevel
                                     if (i == row && j == column)
                                         continue;
                                     
-
                                     idx++;
                                     count++;
                                     Map[j, i] = idx;
@@ -428,6 +427,63 @@ namespace NSLevel
 
 
         }
+
+
+        public void RemoveInBetween()
+        {
+            int boolInt;
+            bool mybool = false;
+            for (int row = 0; row < MapHeight; row++)
+            {
+                if (row % 2 == 0)
+                {
+                    for (int column = 0; column < MapWidth; column++)
+                    {
+                        int v = Map[column, row];
+
+                        //boolInt = mybool ? Map[column, row] : 0;
+                        if (v == 3 || v == 4 || v == 5 || v == 6)
+                            continue;
+
+                        if (RandomUtils.RandomBoolean())
+                            continue;
+
+                        Map[column, row] = empty;
+                        //mybool = !mybool;
+
+                    }
+                }
+                else
+                {
+
+                    mybool = true;
+                    for (int column = 0; column < MapWidth; column++)
+                    {
+                        int v = Map[column, row];
+
+                        //boolInt = mybool ? Map[column, row] : 0;
+                        if (v == 3 || v == 4 || v == 5 || v == 6)
+                            continue;
+
+                        if (RandomUtils.RandomBoolean())
+                            continue;
+
+                        boolInt = mybool ? Map[column, row] : empty;
+                        Map[column, row] = boolInt;
+                        mybool = !mybool;
+
+                    }
+                }
+
+
+            }
+
+
+
+
+
+        }
+
 
         public void Prepare()
         {
