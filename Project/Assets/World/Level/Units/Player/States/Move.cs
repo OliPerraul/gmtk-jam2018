@@ -10,6 +10,13 @@ namespace NSPlayer
     public class Move : Listening
     {
 
+        Vector3 tpos = Vector3.negativeInfinity;
+        [SerializeField]
+        float movingSPeedLatedSystem = .4f;
+
+        bool directionSEtted = false;
+
+
         private Block interestBlock = null;
 
 
@@ -22,9 +29,12 @@ namespace NSPlayer
         // Use this for initialization
         public override void Enter(AState from, params GameObject[] args)
         {
+            Context.anim.SetBool("Walk", true);
+
             path = args[0].GetComponent<Path>();
             turn = true;
             moving = true;
+            directionSEtted = false;
 
         }
 
@@ -40,31 +50,27 @@ namespace NSPlayer
             if (path.stack.Count > 0)
             {
                 Block t = path.stack.Peek();
-                Vector3 target = t.transform.position;
+                tpos = t.transform.position;
 
-                if (!VectorUtil.SufficientlyClose(Context.transform.position, target))
+                if (!directionSEtted)
                 {
-                    bool jump = Context.transform.position.y != target.y;
+                    Quaternion look = Quaternion.LookRotation(tpos - Context.transform.position, Vector3.up);
+                    Context.transform.rotation = look;
+                    directionSEtted = true;
+                        
+                 }
 
-                    if (jump)
-                    {
-                        Jump(target);
-                    }
-                    else
-                    {
-                        CalculateHeading(target);
-                        SetHorizotalVelocity();
-                    }
-
-                    //Locomotion
-                    Context.transform.forward = heading;
-                    Context.transform.position += velocity * Time.deltaTime;
+                if (!VectorUtil.SufficientlyClose(Context.transform.position, tpos))
+                {
+                    Context.transform.position = Vector3.Lerp(Context.transform.position, tpos, movingSPeedLatedSystem);
+                                   
                 }
                 else
                 {
                     //Block center reached
-                    Context.transform.position = target;
+                    Context.transform.position = tpos;
                     path.stack.Pop();
+                    directionSEtted = false;
                 
                     //// If second to last and job is 'Interact' then stop
                     //if (interestBlock.unit != null)

@@ -42,9 +42,8 @@ namespace NSPlayer
                             return;
 
                         // Only works on idle
-                        if (TryInteract(t))
-                        {
-                        }
+                        if (TryInteract(t)) { }
+
 
 
                         // TODO move and interact ??

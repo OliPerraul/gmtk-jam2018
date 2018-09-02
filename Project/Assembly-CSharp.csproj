@@ -150,6 +150,7 @@
     <None Include="Assets\ProCore\ProBuilder\Shader\DiffuseVertexColor.shader" />
     <None Include="Assets\World\Camera\RTS_Camera\Demo\Projectors\Guidelines.txt" />
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_FaceHighlight.shader" />
+    <None Include="Assets\Bernice\HelloWorld.txt" />
     <None Include="Assets\Shaders\CurvedUnlit.shader" />
     <None Include="Assets\Shaders\CurvedUnlitCloud.shader" />
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_UnlitSolidColor.shader" />

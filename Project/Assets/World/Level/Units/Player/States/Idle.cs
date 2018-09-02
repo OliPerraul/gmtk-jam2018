@@ -99,6 +99,8 @@ namespace NSPlayer
         {
             base.Enter(from, args);
 
+            Context.anim.SetBool("Walk", false);
+
 
             // On start
             if (args.Length == 0)
