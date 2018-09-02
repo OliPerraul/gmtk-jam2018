@@ -19,7 +19,7 @@ class RandomUtils
 
     public static bool PercentChance(float percentChance)
     {
-        float chance =  Random.Range(0, 1);
+        float chance =  Random.Range(0f, 1f);
         return (chance <= percentChance);
     }
 

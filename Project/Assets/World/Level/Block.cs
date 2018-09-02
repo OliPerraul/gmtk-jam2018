@@ -12,8 +12,8 @@ namespace NSLevel
         public bool selectable = false;
         public bool busy = false;
 
-       
-
+        [SerializeField]
+        bool isShop = false;
 
 
 
@@ -42,6 +42,11 @@ namespace NSLevel
         // Update is called once per frame
         void Update()
         {
+            if (isShop)
+            {
+                _meshRenderer.material.color = Color.green;
+            }
+            else
             if (busy)
             {
                 _meshRenderer.material.color = Color.cyan;
@@ -222,7 +227,7 @@ namespace NSLevel
             busy = false;
         }
 
-
+        ///TODO Fix when pushed on to farm never unbusy
         public void MarkBusy()
         {
             busy = true;

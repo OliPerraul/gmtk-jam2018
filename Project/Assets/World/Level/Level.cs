@@ -31,10 +31,21 @@ namespace NSLevel
         // Use this for initialization
         void Start()
         {
-            blocks = GameObjectUtil.CollapseChildrenToList<Block>(blocksParent);
+
+            // TODO
+           // blocks = GameObjectUtil.CollapseChildrenToList<Block>(blocksParent);
+            // TODO
+            
+            
             //cells = new Block[(int)size.x, (int)size.y];
             //RefreshGrid();
         }
+
+        public void DoStart()
+        {
+            blocks = GameObjectUtil.CollapseChildrenToList<Block>(blocksParent);
+        }
+
 
         //void RefreshGrid()
         //{
