@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
 
 using System.Collections;
 
@@ -32,34 +29,44 @@ class Economy : MonoBehaviour
 
 
     public float money = 0;
-    public float rent = 10000.00f;
+    public float rent = 100.00f;
+
+    public float newRent = 10f;
 
 
-    public Economy()
+        
+
+    //public void Start()
+    //{
+
+    //    TimeLineSunMoon.instance.onNewMonth.AddListener(RequestRent);
+
+    //}
+
+
+    public void RequestRent()
     {
+        try
+        {
+            EconomyUI.instance.GetComponent<AudioSource>().Play();
+        }
+        catch { System.Exception e; };
+
+        if (money <= rent)
+        {
+            Game.FSM.SwitchState("StartMenu");
+
+        }
+        else
+        {
+            newRent = money * 1.5f + 100f + newRent/4;
+            money -= rent;
+            rent = newRent;
 
 
-        //   //main CountDown
-        //GameObject obj = UnityEngine.Object.Instantiate(GameResources.instance.CountDown);
-        //countd_W = obj.GetComponent<CountDown>();
+            TimeLineSunMoon.instance.speed += Random.Range(.02f, .04f);
 
-        ////main CountDown
-        //GameObject obj2 = UnityEngine.Object.Instantiate(GameResources.instance.CountDown);
-        //countd_W = obj2.GetComponent<CountDown>();
-
-        ////main CountDown
-        //GameObject obj3 = UnityEngine.Object.Instantiate(GameResources.instance.CountDown);
-        //countd_W = obj3.GetComponent<CountDown>();
-
-        //countd_m.startTimer(interval_moonth);
-        //countd_m.loop = true;
-        //countd_y.startTimer(interval_year);
-        //countd_y.loop = true;
-        //countd_W.startTimer(interval_week);
-        //countd_W.loop = true;
-
-
-       
+        }
 
     }
 

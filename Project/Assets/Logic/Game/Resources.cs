@@ -43,6 +43,14 @@ namespace NSGame
 
 
 
+        ///// 
+
+
+        public Material fertileMaterial
+
+            ;
+
+
 
     }
 }

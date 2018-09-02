@@ -11,6 +11,16 @@ namespace NSUnit
 
     public class Harvestable : Unit
     {
+        public enum HARVEST_TYPE
+        {
+            TREE,
+            GRASS,
+
+
+        }
+        public HARVEST_TYPE harvestType;
+
+
         public int health = 1;
 
         public int stackSize;
@@ -28,6 +38,13 @@ namespace NSUnit
         public override void Respond(Unit unit)
         {
             base.Respond(unit);
+
+            if (unit.GetComponent<Player>() == null)
+                return;
+
+            if(unit.GetComponent<Player>().equippedTool != Tool.TOOL_TYPE.AXE && harvestType == HARVEST_TYPE.TREE)
+                return;
+
 
             health--;
 
@@ -53,6 +70,7 @@ namespace NSUnit
 
         public void Harvest()
         {
+            
 
             Pusheable pusheable = Instantiate(product).GetComponent<Pusheable>();
 

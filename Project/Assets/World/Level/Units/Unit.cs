@@ -12,7 +12,11 @@ public class Unit: MonoBehaviour
         DEFAULT,
         PLAYER,
         PUSHEABLE,
-        HARVESTABLE
+        HARVESTABLE,
+            TOOL,
+        NOONE
+
+
     }
 
     [SerializeField]

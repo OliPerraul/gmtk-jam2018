@@ -108,6 +108,11 @@ namespace NSPlayer
                 //else
                 //{
 
+                if (Context.equippedTool == NSUnit.Tool.TOOL_TYPE.RACK)
+                {
+                    path.destination.fertile = true;
+                }
+                
                 //TODO Interact on end move
                 Context.fsm.SwitchState("Idle", path.destination.gameObject);
                 //}

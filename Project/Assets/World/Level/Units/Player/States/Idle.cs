@@ -16,11 +16,12 @@ namespace NSPlayer
         {
             base.Tick();
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow) == true)
-            {
+            if ((TacticsCamera.reversed && (Input.GetKeyDown(KeyCode.RightArrow) == true || Input.GetKeyDown(KeyCode.D) == true))
+                || (!TacticsCamera.reversed && (Input.GetKeyDown(KeyCode.LeftArrow) == true || Input.GetKeyDown(KeyCode.A) == true)))
+                  {
                 Block t;
                 NSEstablishment.Establishment estab;
-                if (Context.block.GetNeighbour(Vector3.left,out  t, out estab))
+                if (Context.block.GetNeighbour(Vector3.left, out t, out estab))
                 {
                     //Interact Estab
                     if (t == null)
@@ -44,7 +45,9 @@ namespace NSPlayer
                     }
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) == true)
+            else
+            if ((!TacticsCamera.reversed && (Input.GetKeyDown(KeyCode.RightArrow) == true || Input.GetKeyDown(KeyCode.D) == true))
+                || (TacticsCamera.reversed && (Input.GetKeyDown(KeyCode.LeftArrow) == true || Input.GetKeyDown(KeyCode.A) == true)))
             {
                 Block t;
                 NSEstablishment.Establishment estab;
@@ -73,9 +76,10 @@ namespace NSPlayer
                 }
 
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow) == true)
+            else if ((TacticsCamera.reversed && (Input.GetKeyDown(KeyCode.DownArrow) == true || Input.GetKeyDown(KeyCode.S) == true))
+                || (!TacticsCamera.reversed && (Input.GetKeyDown(KeyCode.UpArrow) == true || Input.GetKeyDown(KeyCode.W) == true)))
             {
-               // Block t;
+                // Block t;
                 Block t;
                 NSEstablishment.Establishment estab;
                 if (Context.block.GetNeighbour(Vector3.forward, out t, out estab))
@@ -101,7 +105,8 @@ namespace NSPlayer
                 }
 
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow) == true)
+            else if ((TacticsCamera.reversed && (Input.GetKeyDown(KeyCode.UpArrow) == true || Input.GetKeyDown(KeyCode.W) == true))
+                || (!TacticsCamera.reversed && (Input.GetKeyDown(KeyCode.DownArrow) == true || Input.GetKeyDown(KeyCode.S) == true)))
             {
 
                 Block t;
@@ -128,6 +133,74 @@ namespace NSPlayer
                     }
                 }
             }
+            else if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl) || Input.GetKeyDown(KeyCode.E))
+            {
+                //IF CLICK ON SELF DROP TOOLS
+                //if (t.unit == Context)
+                //{
+
+                if (Context.equippedTool != NSUnit.Tool.TOOL_TYPE.NONE)
+                {
+
+                    Unit u = null;
+                    Block b;
+                    switch (Context.equippedTool)
+                    {
+                        case NSUnit.Tool.TOOL_TYPE.AXE:
+
+                            u = Instantiate(NSLevel.Resources.Instance.toolAxe).GetComponent<Unit>();
+                            break;
+
+
+                        case NSUnit.Tool.TOOL_TYPE.SHOVEl:
+
+                            u = Instantiate(NSLevel.Resources.Instance.toolShovel).GetComponent<Unit>();
+                            break;
+
+
+                        case NSUnit.Tool.TOOL_TYPE.RACK:
+
+                            u = Instantiate(NSLevel.Resources.Instance.toolRack).GetComponent<Unit>();
+
+                            break;
+
+
+                    }
+
+                    bool found = false;
+                    var bbb = Context.block.GetAdjacentBlocks();
+                    foreach (Block bb in bbb)
+                    {
+                        if (bb.unit == null && bb.walkable && !bb.busy)
+                        {
+                            //Context.ChangeEquipTool();
+                            Context.equippedTool = NSUnit.Tool.TOOL_TYPE.NONE;
+                            Context.ChangeEquipTool();
+                            found = true;
+                            u.transform.position = bb.transform.position;
+                            bb.SetUnit(u);
+                            break;
+                        }
+
+                    }
+
+                    if (!found)
+                    {
+                        // Context.ChangeEquipTool();
+                        Context.equippedTool = NSUnit.Tool.TOOL_TYPE.NONE;
+                        Context.ChangeEquipTool();
+                        NSLevel.Level.Instance.RainUnit(u);
+                        Destroy(u.gameObject); //destory old one
+
+                    }
+
+                }
+
+
+                //    return;
+                //}
+
+            }
 
 
         }
@@ -151,7 +224,7 @@ namespace NSPlayer
         public override void Exit(AState to)
         {
             Context.block.unit = null;
-            Context.block.walkable = true; 
+            Context.block.walkable = true;
             base.Exit(to);
         }
 

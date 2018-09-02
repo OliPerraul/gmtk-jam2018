@@ -37,10 +37,71 @@ namespace NSPlayer
                     // If sel block with unit
                     if (t.selectable && t.unit != null)
                     {
-                        //Do not interact with self
+                        //IF CLICK ON SELF DROP TOOLS
                         if (t.unit == Context)
-                            return;
+                        {
 
+                            if (Context.equippedTool != NSUnit.Tool.TOOL_TYPE.NONE)
+                            {
+
+                                Unit u = null;
+                                Block b;
+                                switch (Context.equippedTool)
+                                {
+                                    case NSUnit.Tool.TOOL_TYPE.AXE:
+                       
+                                                 u = Instantiate(NSLevel.Resources.Instance.toolAxe).GetComponent<Unit>();
+                                    break;
+                        
+                               
+                                    case NSUnit.Tool.TOOL_TYPE.SHOVEl:
+                         
+                                                 u = Instantiate(NSLevel.Resources.Instance.toolShovel).GetComponent<Unit>();
+                                        break;
+                           
+
+                                    case NSUnit.Tool.TOOL_TYPE.RACK:
+
+                                                 u = Instantiate(NSLevel.Resources.Instance.toolRack).GetComponent<Unit>();
+
+                                        break;
+                                        
+                                 
+                                }
+
+                                bool found = false;
+                                var bbb = t.GetAdjacentBlocks();
+                                foreach (Block bb in bbb)
+                                {
+                                    if (bb.unit == null && bb.walkable && !bb.busy)
+                                    {
+                                       // Context.ChangeEquipTool();
+                                        Context.equippedTool = NSUnit.Tool.TOOL_TYPE.NONE;
+                                        Context.ChangeEquipTool();
+                                        found = true;
+                                        u.transform.position = bb.transform.position;
+                                        bb.SetUnit(u);
+                                        break;
+                                    }
+
+                                }
+
+                                if(!found)
+                                {
+                                    
+                                    Context.equippedTool = NSUnit.Tool.TOOL_TYPE.NONE;
+                                    Context.ChangeEquipTool();
+                                    NSLevel.Level.Instance.RainUnit(u);
+                                    Destroy(u.gameObject); //destory old one
+
+                                }
+
+                            }
+                            
+
+                            return;
+                        }
+                    
                         // Only works on idle
                         if (TryInteract(t)) { }
 

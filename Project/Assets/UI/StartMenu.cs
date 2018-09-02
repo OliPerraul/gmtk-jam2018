@@ -5,17 +5,24 @@ using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
-    public Button startButton;
+    public Sprite[] screens;
+    public Image current;
+    int count = 0;
 
-    public void Start()
+    public void Update()
     {
-        startButton.onClick.AddListener(StartGame);
+        if (Input.anyKeyDown)
+        {
+            count++;
+            if (count < screens.Length)
+            {
+                current.sprite = screens[count];
+            }
+            else
+            {
+                Game.FSM.SwitchState("Begin");
+
+            }
+        }
     }
-
-    public void StartGame()
-    {
-        Game.FSM.SwitchState("Begin");
-    }
-
-
 }

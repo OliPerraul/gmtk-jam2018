@@ -6,11 +6,19 @@ namespace NSLevel
 {
     public class Block : MonoBehaviour
     {
+        public GameObject toolHighlight = null;
+        public GameObject pushHighlight = null;
+        public GameObject harvHighlight = null;
+
         public bool walkable = true;
         public bool current = false;
         public bool target = false;
         public bool selectable = false;
         public bool busy = false;
+
+
+        public bool fertile = false;
+
 
         [SerializeField]
         bool isShop = false;
@@ -43,33 +51,75 @@ namespace NSLevel
         // Update is called once per frame
         void Update()
         {
-            if (isShop)
+            //if (isShop)
+            //{
+            //    _meshRenderer.material.color = Color.yellow;
+            //}
+            //else
+            //if (isKiosk)
+            //{
+            //    _meshRenderer.material.color = Color.green;
+            //}
+            //else
+
+
+            if (fertile)
             {
-                _meshRenderer.material.color = Color.yellow;
+                _meshRenderer.material = NSGame.Resources.Instance.fertileMaterial;
+            }
+
+
+            if (unit != null && unit.type == Unit.TYPE.TOOL)
+            {
+                if(toolHighlight)
+                toolHighlight.SetActive(true);
+                if(pushHighlight)
+                pushHighlight.SetActive(false);
+                if(harvHighlight)
+                harvHighlight.SetActive(false);
+            }
+            else if (unit != null && unit.type == Unit.TYPE.PUSHEABLE)
+            {
+
+                toolHighlight.SetActive(false);
+                pushHighlight.SetActive(true);
+                harvHighlight.SetActive(false);
+            }
+            else if (unit != null && unit.type == Unit.TYPE.HARVESTABLE)
+            {
+
+                toolHighlight.SetActive(false);
+                pushHighlight.SetActive(false);
+                harvHighlight.SetActive(true);
             }
             else
-            if (isKiosk)
             {
-                _meshRenderer.material.color = Color.green;
+                if (toolHighlight)
+                    toolHighlight.SetActive(false);
+                if (pushHighlight)
+                    pushHighlight.SetActive(false);
+                if (harvHighlight)
+                    harvHighlight.SetActive(false);
+
             }
-            else
-            if (busy)
-            {
-                _meshRenderer.material.color = Color.cyan;
-            }
-            else if (unit)
-            {
-                _meshRenderer.material.color = Color.magenta;
-            }
-            else if (!walkable)
-            {
-                _meshRenderer.material.color = Color.red;
-            }
-            else
-            {
-                _meshRenderer.material.color = Color.white;
-            }
+
+            //else if (unit)
+            //{
+            //    _meshRenderer.material.color = Color.magenta;
+            //}
+            //else if (!walkable)
+            //{
+            //    _meshRenderer.material.color = Color.red;
+            //}
+            //else
+            //{
+            //    _meshRenderer.material.color = Color.white;
+            //}
         }
+
+
+        
+
 
         public void Reset()
         {

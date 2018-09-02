@@ -15,6 +15,13 @@ namespace NSGame
         public override void Tick()
         {
             base.Tick();
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                // BEGIN GAME
+                // /*/Game.
+                Game.FSM.SwitchState("Begin");
+            }
         }
 
        

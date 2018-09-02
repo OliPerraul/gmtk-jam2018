@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4892697890359360}
   - component: {fileID: 114401622687343530}
   - component: {fileID: 114858608723126644}
+  - component: {fileID: 82601259480980372}
+  - component: {fileID: 81428545643443876}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -223,6 +225,108 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &81428545643443876
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1108645719525990}
+  m_Enabled: 1
+--- !u!82 &82601259480980372
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1108645719525990}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 3bdbb268f7d4bee49bc02a8572ed50b4, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &114332807247256276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,11 +374,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1542060674736534, guid: 187f3e1371559f04184c83096b3d253c, type: 2}
-  toolRack: {fileID: 0}
-  toolShovel: {fileID: 0}
-  toolAxe: {fileID: 0}
-  store: {fileID: 1892374684900542, guid: 45b7e54cd072cd047b04bc3fdba498bc, type: 2}
-  kiosk: {fileID: 1892374684900542, guid: f47bc98b6c18230488cd2649489c62ed, type: 2}
+  toolRack: {fileID: 1083518858804988, guid: 203a162f0058f604394db9c4832c77c2, type: 2}
+  toolShovel: {fileID: 1580977118657500, guid: 14c915af6f897a04f9517f713f9f5f5d, type: 2}
+  toolAxe: {fileID: 1845703881560192, guid: 42c7f8eeebcdbf14a9dc12c320079bc0, type: 2}
+  store: {fileID: 1868486409527332, guid: 70a32e27c27f49e47b2e6113d4b8ffb6, type: 2}
+  kiosk: {fileID: 1902966203463310, guid: 69cf124afc6d6514abd02b425be1c2c1, type: 2}
   tallGrass: {fileID: 1936783855742978, guid: 0de5c23385116474092cf040977f8eee, type: 2}
   tree: {fileID: 1549162988073548, guid: 7b5c626e42057204681c4a6ec5546beb, type: 2}
   blockGrass: {fileID: 1961345387147292, guid: 43e85e837b37df94e8d029c74f2a157d, type: 2}
@@ -319,6 +423,7 @@ MonoBehaviour:
     m_Bits: 8192
   harvestable: {fileID: 0}
   pusheable: {fileID: 0}
+  fertileMaterial: {fileID: 2100000, guid: 7a8e6b9dfbaf54440bf86f76ceb0d0db, type: 2}
 --- !u!114 &114503784959599616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -334,8 +439,8 @@ MonoBehaviour:
   components: []
   mapWidth: 20
   mapHeight: 20
-  percentWall: 5
-  percentBorderWall: 5
+  percentWall: 20
+  percentBorderWall: 20
   percentTree: 20
   treeVal: 2
   playerVal: 3
@@ -369,7 +474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 0
-  rent: 10000
+  rent: 100
+  newRent: 10
 --- !u!114 &114832057143123530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,7 +501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   states:
-  - {fileID: 114503784959599616}
-  - {fileID: 114832057143123530}
   - {fileID: 114455291935298406}
+  - {fileID: 114832057143123530}
+  - {fileID: 114503784959599616}
   ________currentState_______: {fileID: 0}

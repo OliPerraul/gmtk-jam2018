@@ -8,6 +8,7 @@ namespace NSUnit
 {
     public class Tool : Pusheable
     {
+
        public enum TOOL_TYPE
         {
             NONE = 0,
@@ -15,7 +16,7 @@ namespace NSUnit
             RACK = 2,
             AXE = 3
         }
-        TOOL_TYPE tool_type;
+        public TOOL_TYPE tool_type;
 
 
         public override void Respond(Unit unit)
@@ -39,7 +40,18 @@ namespace NSUnit
         public void Equip(Player player)
         {
             player.equippedTool = tool_type;
-            player.anim.SetInteger("EquippedTool", (int) tool_type);
+            //player.anim.SetBool("Equipped", true);
+
+            // block = ;
+            block.busy = false;
+            block.unit = null;
+            block.walkable = true;
+
+            player.ChangeEquipTool();
+
+            Destroy(gameObject);
+
+
 
         }
 

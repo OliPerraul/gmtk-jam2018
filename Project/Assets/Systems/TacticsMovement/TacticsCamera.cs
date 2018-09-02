@@ -14,6 +14,7 @@ namespace NSTacticsMovement
 
         public void RotateRight()
         {
+     
             transform.Rotate(Vector3.up, -90, Space.Self);
         }
     }

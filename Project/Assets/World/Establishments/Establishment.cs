@@ -9,10 +9,18 @@ namespace NSEstablishment
     {
         public GameObject model;
 
+        public GameObject floatingTextMoney;
+        public GameObject floatingTextMultiplier;
+
+
 
         public virtual void Respond(NSUnit.Pusheable pusheable)
         {
             DoPulse();
+
+            if (pusheable.type == Unit.TYPE.TOOL)
+                NSLevel.Level.Instance.RainUnit(pusheable.gameObject);
+
         }
 
         public virtual void Respond(Player pusheable)

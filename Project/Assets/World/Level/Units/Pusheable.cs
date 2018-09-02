@@ -14,7 +14,7 @@ namespace NSUnit
         /// </summary>
 
 
-        enum PUSHEABLE_TYPE
+        public enum PUSHEABLE_TYPE
         {
             CARROT,
             PUMKIN,
@@ -24,13 +24,22 @@ namespace NSUnit
             PUMKIN_SEEDS,
             CARROT_SEEDS,
 
+            DEAD_CARROT,
+            DEAD_PUMKIN,
 
-            // TODO WOOL?
-            // SHEEP
+            NOONE,
+
+            TOOL,
 
         }
-        PUSHEABLE_TYPE pusheableType;
+        public PUSHEABLE_TYPE pusheableType;
 
+        [SerializeField]
+        GameObject product;
+
+        [SerializeField]
+        GameObject basVersion;
+        
 
         [SerializeField]
         public float moveSpeed = 0.8f;
@@ -59,23 +68,47 @@ namespace NSUnit
 
         Color invis;
 
+        
 
         
         private void Start()
         {
             type = TYPE.PUSHEABLE;
-            invis = model.GetComponent<MeshRenderer>().material.color;
+            //invis = model.GetComponent<MeshRenderer>().material.color;
             invis.a = 0;
             offsetyV = new Vector3(0, goToStoreY, 0);
 
             moveSpeed = 0.8f;
+
+            if (pusheableType == PUSHEABLE_TYPE.CARROT || pusheableType == PUSHEABLE_TYPE.PUMKIN)
+            {
+                Invoke("ExpireCrop", Random.Range(10f, 20f));
+
+            }
+
         }
 
 
+        public void ExpireCrop()
+        {
+            Pusheable pusheable = Instantiate(basVersion).GetComponent<Pusheable>();
+
+            pusheable.transform.position = block.transform.position;
+
+            //  pusheable.block
+            pusheable.block = block;
+            block.unit = pusheable;
+            pusheable.block.fertile = false;
+            block.walkable = false;
+
+            Destroy(gameObject);
+
+        }
+                   
+
         private void Update()
         {
-
-            // TODO FSM??
+           // TODO FSM??
             if (!stable)
             {
                 //transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed);
@@ -85,7 +118,7 @@ namespace NSUnit
 
                     transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, shrinkSpeed);
                     // TODO iterate through models
-                    model.GetComponent<MeshRenderer>().material.color = Color.Lerp(model.GetComponent<MeshRenderer>().material.color, invis, fadeSpeed);
+                 //   model.GetComponent<MeshRenderer>().material.color = Color.Lerp(model.GetComponent<MeshRenderer>().material.color, invis, fadeSpeed);
                 }
                 else
                 {
@@ -100,6 +133,11 @@ namespace NSUnit
                     {
                         targetPosition.y = transform.position.y -fallspeed;
                         falling = false;
+
+                        
+                        if(type == TYPE.TOOL)
+                        Level.Instance.RainUnit(this);
+
                         return;
                     }
 
@@ -107,6 +145,10 @@ namespace NSUnit
                     {
                         onResponseFinished.Invoke();
                         Destroy(gameObject);
+
+                        if (type == TYPE.TOOL)
+                            Level.Instance.RainUnit(this);
+
                         return;
                     }
 
@@ -126,8 +168,25 @@ namespace NSUnit
         public override void Respond(Unit unit)
         {
             base.Respond(unit);
-            // TODO prompt player wait.
 
+            ///IF SEED READY TIO BE PLANTED, PLANT
+            if ((pusheableType == PUSHEABLE_TYPE.CARROT_SEEDS || pusheableType == PUSHEABLE_TYPE.PUMKIN_SEEDS) &&
+                unit.GetComponent<Player>() != null && unit.GetComponent<Player>().equippedTool == Tool.TOOL_TYPE.SHOVEl)
+            {
+                Pusheable pusheable = Instantiate(product).GetComponent<Pusheable>();
+
+                pusheable.transform.position = block.transform.position;
+
+              //  pusheable.block
+                pusheable.block = block;
+                block.unit = pusheable;
+                pusheable.block.fertile = false;
+                block.walkable = false;
+
+                Destroy(gameObject);
+
+            }
+            else
             if (CanPush(unit.direction))
             {
                 direction = unit.direction;
@@ -178,7 +237,7 @@ namespace NSUnit
                 else // We got a cube
                 {
                     // Pushed against othe rpushable
-                    if (neighbour.unit != null && neighbour.unit.type == Unit.TYPE.PUSHEABLE)
+                    if (neighbour.unit != null && (neighbour.unit.type == Unit.TYPE.PUSHEABLE || neighbour.unit.type == Unit.TYPE.TOOL))
                     {
                         // TODO Stack same pusheable item
                         // If cant push next, then cant push
@@ -193,7 +252,7 @@ namespace NSUnit
                         DoPush();
 
                     }
-                    else if (neighbour.unit != null && neighbour.unit.type != Unit.TYPE.PUSHEABLE)
+                    else if (neighbour.unit != null && (neighbour.unit.type == Unit.TYPE.HARVESTABLE))
                     {
                         // RETURN CANT MOVE
                         block.busy = false;

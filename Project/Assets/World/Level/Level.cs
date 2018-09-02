@@ -44,6 +44,11 @@ namespace NSLevel
             //RefreshGrid();
         }
 
+        private void Update()
+        {
+            RandomRain();
+        }
+
         public void DoStart()
         {
             blocks = GameObjectUtil.CollapseChildrenToList<Block>(blocksParent);
@@ -93,6 +98,125 @@ namespace NSLevel
 
         }
 
+        public void RandomRain()
+        {
+            if (RandomUtils.PercentChance(.0000001f))
+            {
+                int x = Random.Range(1, 10);
+
+                switch (x)
+                {
+                    case 0:
+                        RainUnit(NSLevel.Resources.Instance.carrotSeeds);
+                        break;
+
+                        
+                    case 1:
+                        RainUnit(NSLevel.Resources.Instance.pumkinSeeds);
+                        break;
+
+
+
+
+                }
+            }
+
+
+        }
+
+        public void RainUnit( GameObject unit)
+        {
+            float startperc = 1f;
+            float percDif = .001f;
+            bool dropped = false;
+            while (!dropped)
+            {
+
+                foreach (Block block in blocks)
+                {
+                    if (block.walkable && !block.busy && block.unit == null)
+                    {
+                        if (RandomUtils.PercentChance(startperc))
+                        {
+                            startperc -= percDif;
+                            if (startperc < 0)
+                                startperc = 0;
+
+                            continue;
+                        }
+
+                        GameObject gameObject = Instantiate(unit);
+                        var pushe = gameObject.GetComponent<NSUnit.Pusheable>();
+
+                        pushe.transform.position = block.transform.position + Vector3.up * heightItemDrop;
+                        //  seeds
+                        pushe.targetPosition = block.transform.position;
+                        pushe.stable = false;
+
+                        block.unit = pushe;
+                        pushe.block = block;
+                        block.walkable = false;
+                        block.busy = true;
+
+                        pushe.onResponseFinished.AddListener(block.OnInteractionFinished);
+
+                        dropped = true;
+
+                        return;
+                    }
+
+                }
+            }
+
+        }
+
+        // CHeck good place for drop
+        public void RainUnit(Unit unit)
+        {
+            float startperc = 1f;
+            float percDif = .001f;
+            bool dropped = false;
+            while (!dropped)
+            {
+
+                foreach (Block block in blocks)
+                {
+                    if (block.walkable && !block.busy && block.unit == null)
+                    {
+                        if (RandomUtils.PercentChance(startperc))
+                        {
+                            startperc -= percDif;
+                            if (startperc < 0)
+                                startperc = 0;
+
+                            continue;
+                        }
+
+                        GameObject gameObject = Instantiate(unit.gameObject);
+                        var pushe = gameObject.GetComponent<NSUnit.Pusheable>();
+
+                        pushe.transform.position = block.transform.position + Vector3.up * heightItemDrop;
+                        //  seeds
+                        pushe.targetPosition = block.transform.position;
+                        pushe.stable = false;
+
+                        block.unit = pushe;
+                        pushe.block = block;
+                        block.walkable = false;
+                        block.busy = true;
+
+                        pushe.onResponseFinished.AddListener(block.OnInteractionFinished);
+
+                        dropped = true;
+
+                        return;
+                    }
+
+                }
+            }
+
+        }
+
 
         public void RainSingleSeedsBag(Block block)
         {
@@ -104,7 +228,7 @@ namespace NSLevel
             }
             else
             {
-                gameObject = Instantiate(NSLevel.Resources.Instance.carrotSeeds);
+                gameObject = Instantiate(NSLevel.Resources.Instance.pumkinSeeds);
             }
 
             var seeds = gameObject.GetComponent<NSUnit.Pusheable>();

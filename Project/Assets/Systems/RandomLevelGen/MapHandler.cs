@@ -405,7 +405,9 @@ namespace NSLevel
                                     
                                     idx++;
                                     count++;
+                                    
                                     Map[j, i] = idx;
+
                                 }
 
                             }

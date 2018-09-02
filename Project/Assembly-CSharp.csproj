@@ -61,7 +61,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\audioso.cs" />
+    <Compile Include="Assets\BlueOverlay.cs" />
+    <Compile Include="Assets\FloatingText.cs" />
     <Compile Include="Assets\InputControllers\InputControllerDefault.cs" />
+    <Compile Include="Assets\ItemHover.cs" />
     <Compile Include="Assets\Logic\FSM\AState.cs" />
     <Compile Include="Assets\Logic\FSM\AStateComponent.cs" />
     <Compile Include="Assets\Logic\FSM\FSM.cs" />
@@ -98,6 +102,8 @@
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
     <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
+    <Compile Include="Assets\Scenes\TacticsCamera.cs" />
+    <Compile Include="Assets\SHopSignHover.cs" />
     <Compile Include="Assets\Systems\Economy\Economy.cs" />
     <Compile Include="Assets\Systems\Economy\EconomyUI.cs" />
     <Compile Include="Assets\Systems\Health\Healthbar.cs" />
@@ -115,6 +121,8 @@
     <Compile Include="Assets\Systems\PathFind\Point.cs" />
     <Compile Include="Assets\Systems\RandomLevelGen\MapHandler.cs" />
     <Compile Include="Assets\Systems\TacticsMovement\TacticsCamera.cs" />
+    <Compile Include="Assets\TimeLineSunMoon.cs" />
+    <Compile Include="Assets\TOOLINIT.cs" />
     <Compile Include="Assets\UI\StartMenu.cs" />
     <Compile Include="Assets\World\Camera\CameraHorizonCurve.cs" />
     <Compile Include="Assets\World\Camera\RTS_Camera\Demo\DemoScene.cs" />
@@ -178,6 +186,7 @@
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_ScrollHighlight.shader" />
     <None Include="Assets\Shaders\UnlitBlinking.shader" />
     <None Include="Assets\ProCore\ProBuilder\readme.txt" />
+    <None Include="Assets\Bernice2\HelloWorld.txt" />
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_SmoothingPreview.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/bigol/Desktop/repos/gmtk-jam/Project/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

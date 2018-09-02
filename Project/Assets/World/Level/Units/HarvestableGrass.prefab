@@ -134,6 +134,8 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   model: {fileID: 1175424720747488}
   block: {fileID: 0}
+  direction: {x: 0, y: 0, z: 0}
+  harvestType: 1
   health: 1
   stackSize: 0
   product: {fileID: 114957761565603594, guid: e7d4127bc1044044295e5df0b26924aa, type: 2}
